@@ -1,0 +1,2439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NOCTIS — Japanese fine dining in London. Where technique becomes ritual and the meal becomes memory.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NOCTIS — Dining beyond perception.">
+<meta property="og:description" content="NOCTIS — Japanese fine dining in London. Where technique becomes ritual and the meal becomes memory.">
+<meta property="og:image" content="https://noctis.com/og-image.jpg">
+<meta property="og:url" content="https://noctis.com">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NOCTIS — Dining beyond perception.">
+<meta name="twitter:description" content="NOCTIS — Japanese fine dining in London. Where technique becomes ritual and the meal becomes memory.">
+<meta name="twitter:image" content="https://noctis.com/og-image.jpg">
+<title>NOCTIS — Dining beyond perception.</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="01_HERO/atmosfera.jpg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:       #0A0A0A;
+  --cream:       #F5F0EB;
+  --white:       #FFFFFF;
+  --gold:        #C9A96E;
+  --grey:        #1A1A1A;
+  --border-d:    #2A2A2A;
+  --border-l:    #D5CFC8;
+}
+
+html { scroll-behavior: smooth; }
+@media (hover: hover) and (pointer: fine) { html { cursor: none; } }
+
+/* ─── CUSTOM CURSOR ───────────────────────────────────── */
+
+#cursor {
+  position: fixed; top: 0; left: 0; z-index: 99999;
+  width: 13px; height: 13px;
+  border: 1px solid rgba(255,255,255,.38);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: border-color .35s, background-color .35s, scale .35s cubic-bezier(.16,1,.3,1);
+  scale: 1;
+  will-change: translate;
+}
+#cursor.hover {
+  border-color: var(--gold);
+  background-color: rgba(201,169,110,.1);
+  scale: 1.7;
+}
+@media (pointer: coarse), (hover: none) { #cursor { display: none; } }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+}
+body.loading { overflow: hidden; }
+
+/* ─── PRELOADER ───────────────────────────────────────── */
+#preloader {
+  position: fixed; inset: 0;
+  background: var(--black);
+  z-index: 10000;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 28px;
+}
+#preloader.out { animation: preOut 1s cubic-bezier(.76,0,.24,1) forwards; }
+@keyframes preOut { to { transform: translateY(-100%); } }
+
+.pre-logo {
+  display: flex;
+  font-size: 24px; font-weight: 200;
+  letter-spacing: .8em; text-transform: uppercase;
+  color: var(--white);
+  transition: letter-spacing .7s cubic-bezier(.16,1,.3,1), opacity .7s ease;
+}
+#preloader.out .pre-logo { letter-spacing: 1.8em; opacity: 0; }
+
+.pre-logo span {
+  display: inline-block;
+  opacity: 0; transform: translateY(18px); filter: blur(5px);
+  animation: ltr .65s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes ltr { to { opacity:1; transform:translateY(0); filter:blur(0); } }
+
+.pre-line {
+  width: 0; height: 1px;
+  background: var(--gold);
+  animation: lineGrow 1s ease-out .5s forwards;
+}
+@keyframes lineGrow { to { width: 180px; } }
+
+
+/* ─── NAVBAR ──────────────────────────────────────────── */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; z-index: 1001;
+  height: 1px; width: 0%; background: var(--gold);
+  transition: width .1s linear;
+  pointer-events: none;
+}
+nav {
+  position: fixed; top:0; left:0; right:0;
+  z-index: 1000;
+  padding: 28px 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background .4s, padding .4s;
+}
+nav.stuck {
+  background: rgba(10,10,10,.93);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 18px 60px;
+}
+.nav-logo {
+  font-size: 14px; font-weight: 300;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: var(--white); text-decoration: none;
+}
+.nav-links {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 44px; list-style: none;
+}
+.nav-links a {
+  font-size: 12px; font-weight: 300;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--white); text-decoration: none;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0;
+  width: 100%; height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s cubic-bezier(.16,1,.3,1);
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active::after { transform: scaleX(1); }
+.nav-right { display: flex; align-items: center; gap: 24px; }
+
+.lang-btn {
+  font-size: 12px; font-weight: 300; letter-spacing: .08em;
+  color: var(--white); cursor: pointer; user-select: none;
+  display: flex; align-items: center; gap: 5px;
+  background: none; border: none;
+}
+.lang-btn .lopt { transition: opacity .3s ease-out; }
+.lang-btn .lopt.on { opacity: 1; }
+.lang-btn .lopt:not(.on) { opacity: .28; }
+.lang-btn .lsep { opacity: .18; }
+
+.nav-cta {
+  font-size: 12px; font-weight: 300;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--white); text-decoration: none;
+  border: 1px solid var(--white); padding: 8px 20px;
+  transition: background .3s ease-out, color .3s ease-out;
+}
+.nav-cta:hover { background: var(--white); color: var(--black); }
+
+.burger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.burger span {
+  display: block; width: 22px; height: 1px;
+  background: var(--white);
+  transition: transform .3s, opacity .3s;
+}
+.burger.x span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.burger.x span:nth-child(2) { opacity: 0; }
+.burger.x span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.mob-menu {
+  display: none;
+  position: fixed; inset: 0;
+  background: var(--black);
+  z-index: 999;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 36px; opacity: 0; transition: opacity .35s;
+  pointer-events: none;
+}
+.mob-menu.show { opacity: 1; pointer-events: auto; }
+.mob-menu a {
+  font-size: 26px; font-weight: 300;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--white); text-decoration: none;
+  transition: color .3s ease-out;
+}
+.mob-menu a:hover { color: var(--gold); }
+.mob-lang-btn {
+  position: absolute; bottom: 36px;
+  background: none; border: none; cursor: pointer;
+  font-size: 11px; font-weight: 300; letter-spacing: .18em;
+  color: var(--white); display: flex; align-items: center; gap: 6px;
+}
+.mob-lang-btn .lopt { transition: opacity .3s ease-out; }
+.mob-lang-btn .lopt.on { opacity: 1; }
+.mob-lang-btn .lopt:not(.on) { opacity: .28; }
+.mob-lang-btn .lsep { opacity: .18; }
+
+@media (max-width:768px) {
+  nav { padding: 20px 24px; }
+  nav.stuck { padding: 16px 24px; }
+  .nav-links, .nav-right { display: none; }
+  .burger { display: flex; }
+  .mob-menu { display: flex; }
+}
+
+/* ─── HERO ────────────────────────────────────────────── */
+#hero { position: relative; height: 100vh; overflow: hidden; }
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('01_HERO/atmosfera.jpg') center/cover no-repeat;
+  will-change: transform;
+}
+
+
+.hero-ov1 { position: absolute; inset: 0; background: rgba(0,0,0,.35); }
+.hero-ov2 {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, #0A0A0A 0%, transparent 58%);
+}
+
+.hero-body {
+  position: absolute; bottom: 80px; left: 80px; z-index: 2;
+}
+.hero-label {
+  font-size: 11px; font-weight: 300;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 18px;
+  opacity: 0; transform: translateY(30px);
+}
+.hero-label.in { animation: hIn 1s cubic-bezier(.16,1,.3,1) .2s forwards; }
+
+.hero-title {
+  font-size: clamp(5rem, 12vw, 14rem);
+  font-weight: 800; letter-spacing: .2em; font-kerning: none;
+  color: var(--white); line-height: .9;
+  margin-bottom: 20px; margin-left: -0.08em;
+  opacity: 0;
+  will-change: letter-spacing, opacity;
+}
+.hero-title.in {
+  animation: titleBloom 2.2s cubic-bezier(.16,1,.3,1) .4s forwards;
+}
+
+.hero-tagline {
+  font-size: 14px; font-weight: 300;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(255,255,255,.65); margin-bottom: 44px;
+  opacity: 0; transform: translateY(30px);
+}
+.hero-tagline.in { animation: hIn 1s cubic-bezier(.16,1,.3,1) .6s forwards; }
+
+.hero-btns {
+  display: flex; gap: 20px;
+  opacity: 0; transform: translateY(30px);
+}
+.hero-btns.in { animation: hIn 1s cubic-bezier(.16,1,.3,1) .8s forwards; }
+
+@keyframes hIn { to { opacity:1; transform:translateY(0); } }
+@keyframes titleBloom {
+  0%   { opacity: 0; letter-spacing: 0em;  filter: blur(14px); }
+  40%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; letter-spacing: .2em; filter: blur(0); }
+}
+
+.btn-gold {
+  font-size: 12px; font-weight: 200;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--white); background: transparent;
+  border: 1px solid rgba(255,255,255,.55);
+  padding: 15px 36px; text-decoration: none;
+  display: inline-block;
+  position: relative; overflow: hidden;
+  transition: border-color .5s cubic-bezier(.16,1,.3,1), color .4s;
+}
+.btn-gold::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: #C29B4E;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .55s cubic-bezier(.16,1,.3,1);
+}
+.btn-gold span { position: relative; z-index: 1; }
+.btn-gold:hover { border-color: var(--gold); color: var(--black); }
+.btn-gold:hover::before { transform: scaleX(1); }
+
+.btn-ghost {
+  font-size: 12px; font-weight: 200;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  padding: 15px 4px; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 10px;
+  transition: color .4s, gap .4s cubic-bezier(.16,1,.3,1);
+  background: none; border: none;
+}
+.btn-ghost::after {
+  content: '→';
+  font-size: 14px; font-weight: 200;
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+  display: inline-block;
+}
+.btn-ghost:hover { color: var(--white); gap: 16px; }
+.btn-ghost:hover::after { transform: translateX(4px); }
+
+/* ─ Hero info bar ─ */
+@keyframes heroDecorIn { from { opacity: 0; } to { opacity: 1; } }
+.hero-infobar {
+  position: absolute; bottom: 28px; left: 80px; right: 80px; z-index: 3;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  animation: heroDecorIn .9s ease 3.8s both;
+}
+.hero-coords {
+  font-size: 10px; font-weight: 200;
+  letter-spacing: .25em; text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+.hero-clock {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+}
+.hero-clock-label {
+  font-size: 9px; font-weight: 200;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+}
+.hero-clock-time {
+  font-size: 28px; font-weight: 200;
+  letter-spacing: .1em; color: rgba(255,255,255,.9);
+  line-height: 1;
+}
+
+@media (max-width:768px) {
+  .hero-body { bottom: 56px; left: 24px; right: 24px; }
+  .hero-title { font-size: clamp(3rem, 15vw, 8rem); white-space: nowrap; }
+  .hero-btns { flex-direction: column; gap: 12px; }
+  .hero-infobar { left: 24px; right: 24px; bottom: 20px; }
+}
+
+/* ─── SHARED UTILS ────────────────────────────────────── */
+.s-label {
+  font-size: 13px; font-weight: 300;
+  letter-spacing: .38em; text-transform: uppercase;
+  color: var(--gold); display: block; margin-bottom: 0;
+}
+.s-header {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: 18px;
+}
+.sec-num {
+  font-size: 34px; font-weight: 200;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.22); flex-shrink: 0;
+}
+#experience .sec-num { color: var(--white); }
+#menu .sec-num { color: var(--black); }
+#chef .sec-num { color: var(--white); }
+#reservation .sec-num { color: var(--black); }
+#menu .s-label, #reservation .s-label { color: #7A5C30; }
+#menu .gold-line, #reservation .gold-line { background: #7A5C30; }
+.gold-line {
+  height: 1px; background: var(--gold);
+  width: 0; max-width: 56px;
+  transition: width .8s cubic-bezier(.16,1,.3,1);
+}
+.gold-line.vis { width: 56px; }
+
+.fu { opacity: 0; transform: translateY(40px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+.fu.vis { opacity:1; transform:translateY(0); }
+.fu.d1 { transition-delay: .1s; }
+.fu.d2 { transition-delay: .2s; }
+.fu.d3 { transition-delay: .3s; }
+.fu.d4 { transition-delay: .4s; }
+.fu.d5 { transition-delay: .5s; }
+
+.clip-r { clip-path: inset(100% 0 0 0); transition: clip-path 1.2s ease-out; }
+.ios-safari .clip-r { clip-path: none !important; opacity: 0; transition: opacity 0.9s ease-out; }
+.ios-safari .clip-r.vis { opacity: 1; }
+
+.wipe-l {
+  opacity: 0; transform: translateX(-28px);
+  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.wipe-l.vis { opacity: 1; transform: translateX(0); }
+
+.wipe-r {
+  opacity: 0; transform: translateX(28px);
+  transition: opacity .8s .1s cubic-bezier(.16,1,.3,1), transform .8s .1s cubic-bezier(.16,1,.3,1);
+}
+.wipe-r.vis { opacity: 1; transform: translateX(0); }
+.clip-r.vis { clip-path: inset(0% 0 0 0); }
+
+/* ─── EXPERIENCE ──────────────────────────────────────── */
+#experience { background: var(--black); padding: 160px 80px; }
+
+.exp-inner {
+  display: grid; grid-template-columns: 38fr 62fr;
+  gap: clamp(80px, 12vw, 200px); max-width: 1400px; margin: 0 auto;
+}
+.exp-left { position: sticky; top: 100px; align-self: start; }
+
+.exp-title {
+  font-size: clamp(3rem, 5vw, 7rem);
+  font-weight: 700; line-height: 1.05;
+  color: var(--white); margin-bottom: 28px;
+}
+.exp-body {
+  font-size: 15px; font-weight: 300;
+  line-height: 1.85; max-width: 400px;
+  color: rgba(255,255,255,.55);
+}
+.exp-right {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-top: clamp(320px, 40vw, 600px);
+}
+
+.exp-img-wrap {
+  position: relative; overflow: hidden;
+  height: clamp(260px, 26vw, 400px);
+}
+.exp-img-wrap img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transform: scale(1.05); opacity: 0;
+  transition: transform 1.4s cubic-bezier(.16,1,.3,1), opacity 0.55s ease-out 0.25s;
+}
+.exp-img-wrap.vis img { transform: scale(1); opacity: 1; }
+
+@media (min-width: 1600px) {
+  .exp-inner { max-width: 1800px; }
+  .exp-img-wrap { height: auto; aspect-ratio: 3/2; }
+}
+
+@media (max-width:768px) {
+  #experience { padding: 80px 24px; }
+  .exp-inner { grid-template-columns: 1fr; gap: 48px; }
+  .exp-left { position: relative; top: auto; }
+  .exp-title { font-size: clamp(2.6rem, 8vw, 5rem); }
+  .exp-right { padding-top: 0; gap: 20px; }
+  .exp-img-wrap { height: clamp(220px, 56vw, 320px); }
+}
+
+/* ─── OMAKASE ─────────────────────────────────────────── */
+#omakase { background: var(--black); padding: 160px 80px; text-align: center; }
+.oma-inner { max-width: 640px; margin: 0 auto; }
+.oma-word {
+  display: block;
+  font-size: clamp(4.5rem, 10vw, 11rem);
+  font-weight: 200; font-style: italic;
+  letter-spacing: .03em; line-height: 1;
+  color: var(--white); margin-bottom: 22px;
+}
+.oma-sub {
+  display: block;
+  font-size: 11px; font-weight: 300;
+  letter-spacing: .44em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.oma-rule {
+  width: 32px; height: 1px;
+  background: var(--gold); opacity: .45;
+  margin: 0 auto 48px;
+}
+.oma-body {
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  font-weight: 300; line-height: 2.1;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.66);
+  margin: 0;
+}
+@media (max-width: 768px) {
+  #omakase { padding: 100px 20px; }
+  .oma-word { font-size: clamp(3.8rem, 18vw, 7rem); }
+  .oma-body { font-size: clamp(11px, 3.35vw, 15px); letter-spacing: 0; }
+}
+
+/* ─── DISHES ──────────────────────────────────────────── */
+#menu { background: var(--cream); padding: 160px 0 160px 80px; cursor: default; }
+
+.dishes-hd { padding-right: 80px; margin-bottom: 56px; }
+.dishes-hd .gold-line { max-width: 65px; }
+.dishes-hd .gold-line.vis { width: 65px; }
+.dishes-title {
+  font-size: clamp(2.4rem, 4vw, 5rem);
+  font-weight: 700; line-height: 1.1;
+  color: var(--black); margin-top: 0;
+}
+
+.carousel {
+  display: flex; gap: 40px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; padding-right: calc(100% - clamp(280px, 28vw, 440px)); padding-bottom: 12px;
+}
+.carousel::-webkit-scrollbar { display: none; }
+
+.d-card {
+  flex-shrink: 0; width: clamp(280px, 28vw, 440px);
+  scroll-snap-align: start; cursor: pointer;
+}
+.d-img {
+  width:100%; aspect-ratio: 4/5;
+  overflow:hidden; margin-bottom:14px;
+  background: #e2ddd7;
+}
+.d-img img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+@media (hover: hover) and (pointer: fine) { .d-card:hover .d-img img { transform: scale(1.03); } }
+.d-img.z10 img { transform: scale(1.1); }
+@media (hover: hover) and (pointer: fine) { .d-card:hover .d-img.z10 img { transform: scale(1.13); } }
+.d-img.z13 img { transform: scale(1.13); }
+@media (hover: hover) and (pointer: fine) { .d-card:hover .d-img.z13 img { transform: scale(1.16); } }
+.d-img.z12 img { transform: scale(1.12); }
+@media (hover: hover) and (pointer: fine) { .d-card:hover .d-img.z12 img { transform: scale(1.15); } }
+.d-img.z2 img { transform: scale(1.02); }
+@media (hover: hover) and (pointer: fine) { .d-card:hover .d-img.z2 img { transform: scale(1.05); } }
+.d-img.z35 img { transform: scale(1.035); }
+@media (hover: hover) and (pointer: fine) { .d-card:hover .d-img.z35 img { transform: scale(1.065); } }
+.d-img.z135 img { transform: scale(1.135); }
+@media (hover: hover) and (pointer: fine) { .d-card:hover .d-img.z135 img { transform: scale(1.165); } }
+.d-img { position: relative; }
+.d-name { font-size: clamp(.85rem, 1.1vw, 1.1rem); font-weight: 300; letter-spacing: .24em; text-transform: uppercase; color: var(--black); margin-bottom: 7px; margin-top: 18px; }
+.d-desc { font-size: 11px; font-weight: 300; color: rgba(0,0,0,.55); line-height: 1.6; letter-spacing: .04em; }
+
+.c-nav { display:flex; gap:14px; align-items:center; margin-top:44px; padding-right:80px; }
+.c-btn {
+  display:flex; align-items:center; gap:10px;
+  background:none; border:none; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:12px; font-weight:300;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--black);
+  opacity:.45; transition:opacity .3s ease-out; padding:6px;
+  user-select:none; -webkit-user-select:none; touch-action:manipulation;
+}
+.c-btn:hover { opacity:1; }
+.c-line {
+  width:38px; height:1px; background:var(--black);
+  position:relative; flex-shrink:0; transition:width .3s cubic-bezier(.16,1,.3,1);
+}
+.c-btn:hover .c-line { width:52px; }
+.c-btn.nxt .c-line::after {
+  content:''; position:absolute; right:0; top:-3px;
+  width:6px; height:6px;
+  border-top:1px solid var(--black); border-right:1px solid var(--black);
+  transform:rotate(45deg);
+}
+.c-btn.prv .c-line::after {
+  content:''; position:absolute; left:0; top:-3px;
+  width:6px; height:6px;
+  border-top:1px solid var(--black); border-left:1px solid var(--black);
+  transform:rotate(-45deg);
+}
+
+@media (max-width:768px) {
+  #menu { padding: 80px 0 80px 24px; }
+  .dishes-hd, .c-nav { padding-right: 24px; }
+  .dishes-title { font-size: clamp(2rem, 8vw, 4rem); }
+  .d-card { width: 260px; }
+  .carousel { padding-right: calc(100% - 260px); }
+}
+
+/* ─── CHEF ────────────────────────────────────────────── */
+#chef { background: var(--black); padding: 160px 80px; }
+
+.chef-inner {
+  position: relative; max-width: 1400px; margin: 0 auto;
+  min-height: 80vh; display: flex; align-items: center;
+}
+.chef-txt { position:relative; z-index:2; max-width: 480px; }
+.chef-txt .gold-line { max-width: 65px; }
+.chef-txt .gold-line.vis { width: 65px; }
+
+.chef-title {
+  font-size: clamp(3rem, 5vw, 7rem);
+  font-weight: 800; line-height: 1.08;
+  color: var(--white); margin-bottom: 14px; margin-top: 0;
+}
+.chef-sub {
+  font-size: 13px; font-weight: 300;
+  letter-spacing: .38em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 28px;
+}
+.chef-bio {
+  font-size: 15px; font-weight: 300;
+  line-height: 1.85; max-width: 380px;
+  color: rgba(255,255,255,.55);
+}
+
+.chef-photo {
+  position: absolute; right: 0; top: 0;
+  width: 60%; height: 80vh; overflow: hidden;
+}
+.chef-photo img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center top; display:block;
+}
+.chef-photo::before {
+  content:''; position:absolute; inset:0; z-index:1;
+  background: linear-gradient(to right, var(--black) 0%, transparent 42%);
+}
+
+.chef-wide {
+  position:relative; width:100%; aspect-ratio:16/9;
+  overflow:hidden; max-width:1400px; margin:72px auto 0;
+}
+.chef-wide img { width:100%; height:100%; object-fit:cover; display:block; }
+.chef-wide-ov {
+  position:absolute; inset:0; background:rgba(0,0,0,.48);
+  display:flex; align-items:center; justify-content:center; padding:40px;
+}
+.chef-quote {
+  font-size: clamp(1.8rem, 3vw, 4rem);
+  font-weight: 300; letter-spacing: .04em;
+  color: var(--white); text-align:center;
+  line-height: 1.35; max-width: 680px;
+}
+.chef-quote-reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity 1.08s cubic-bezier(.16,1,.3,1), transform 1.08s cubic-bezier(.16,1,.3,1);
+}
+.chef-quote-reveal.vis {
+  opacity: 1; transform: translateY(0);
+  transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1);
+}
+
+@media (max-width:768px) {
+  #chef { padding: 80px 24px; }
+  .chef-inner { flex-direction:column; gap:20px; min-height:auto; }
+  .chef-photo { position:relative; width:100%; height:60vw; right:auto; top:auto; }
+  .chef-photo::before { background:linear-gradient(to bottom, var(--black) 0%, transparent 35%); }
+  .chef-wide { margin-top: 36px; }
+  .chef-title { font-size: clamp(2.6rem, 10vw, 5rem); }
+  .chef-quote { font-size: clamp(1rem, 5vw, 1.4rem); }
+  .chef-txt { max-width:100%; }
+}
+@media (min-width:769px) {
+  .chef-photo.clip-r { clip-path: inset(0 100% 0 0); transition: clip-path 1s cubic-bezier(0.42, 0, 0.58, 1); }
+  .chef-photo.clip-r.vis { clip-path: inset(0 0% 0 0); }
+}
+
+/* ─── GALLERY ─────────────────────────────────────────── */
+#gallery { background: var(--black); padding: 0; }
+
+.gal-hd {
+  position: relative;
+  text-align: center;
+  padding: clamp(29px,3.6vw,44px) 80px;
+  min-height: clamp(160px,22.4vw,258px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin: 0;
+  background: url('marmo.PNG') center / cover no-repeat;
+}
+.gal-hd::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.50);
+  pointer-events: none;
+}
+.gal-hd > * { position: relative; z-index: 1; }
+.gal-hd .gold-line { margin-bottom: 10px; }
+.gal-title {
+  font-size: clamp(1.51rem, 2.52vw, 3.15rem);
+  font-weight: 200; line-height: 1.1;
+  color: var(--white); margin-top: 10px;
+}
+.gal-label-center { display:block; text-align:center; }
+
+/* gal-hd: dedicated vertical reveal (classi proprie, observer dedicato) */
+.gal-lbl {
+  opacity: 0;
+  transform: translateY(38px);
+  transition: opacity 0.9s cubic-bezier(.16,1,.3,1), transform 0.9s cubic-bezier(.16,1,.3,1);
+  transition-delay: 0.06s;
+}
+.gal-ttl {
+  opacity: 0;
+  transform: translateY(56px) scale(0.95);
+  transition: opacity 1.1s cubic-bezier(.16,1,.3,1), transform 1.1s cubic-bezier(.16,1,.3,1);
+  transition-delay: 0.24s;
+}
+.gal-lbl.vis { opacity: 1; transform: translateY(0); }
+.gal-ttl.vis { opacity: 1; transform: translateY(0) scale(1); }
+
+.masonry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: clamp(300px, 36vw, 500px);
+  gap: 3px;
+}
+.gal-item {
+  position: relative; overflow: hidden; cursor: pointer;
+}
+.gal-item:nth-child(1) { grid-row: span 2; }
+.gal-item:nth-child(6) { grid-row: span 2; }
+.gal-item img { width:100%; height:100%; object-fit:cover; display:block; transition: transform .55s cubic-bezier(.16,1,.3,1), opacity 0.28s ease; }
+.gal-ov {
+  position:absolute; inset:0; background:rgba(0,0,0,.4);
+  display:flex; align-items:flex-end; padding:20px;
+  opacity:0; transition:opacity .4s; z-index:2;
+}
+@media (hover: hover) and (pointer: fine) {
+  .gal-item:hover img { transform:scale(1.04); }
+  .exp-img-wrap.vis:hover img { transform:scale(1.04); }
+  .gal-item:hover .gal-ov,
+  .exp-img-wrap:hover .gal-ov,
+  .cktl-img:hover .gal-ov,
+  .cktl-sec-img:hover .gal-ov { opacity:1; }
+}
+.gal-loc {
+  font-size:12px; font-weight:300;
+  letter-spacing:.3em; text-transform:uppercase; color:var(--white);
+}
+
+@media (max-width:768px) {
+  .gal-hd { padding: 16px 24px; min-height: 168px; }
+  .gal-hd .gold-line { margin-bottom: 7px; }
+  .masonry { grid-template-columns: 1fr 1fr; grid-auto-rows: 52vw; }
+  .gal-item:nth-child(1), .gal-item:nth-child(6) { grid-row: span 1; }
+  #gallery .gal-item { clip-path: none !important; opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1); }
+  #gallery .gal-item:nth-child(even) { transition-delay: 0.13s; }
+  #gallery .gal-item.vis { opacity: 0 !important; clip-path: none !important; }
+  #gallery .gal-item.mob-vis { opacity: 1 !important; transform: translateY(0); }
+  .gal-title { font-size: clamp(1.53rem, 5.35vw, 2.68rem); }
+}
+
+/* ─── PHILOSOPHY (HORIZONTAL SCROLL) ──────────────── */
+#philosophy { height: 300vh; position: relative; background: var(--black); }
+.phi-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.phi-track { display: flex; height: 100%; width: 300vw; will-change: transform; }
+.phi-panel {
+  width: 100vw; height: 100%;
+  display: grid; grid-template-columns: 44fr 56fr; overflow: hidden;
+}
+.phi-txt {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(48px,7vw,100px); gap: 28px;
+}
+.phi-num {
+  display: flex; align-items: baseline; gap: 10px;
+  letter-spacing: .38em; text-transform: uppercase;
+}
+.phi-n {
+  font-size: 34px; font-weight: 200;
+  color: var(--white); letter-spacing: .18em;
+}
+.phi-word {
+  font-size: 13px; font-weight: 300; color: var(--gold);
+}
+.phi-line { height: 1px; background: var(--gold); width: 56px; }
+.phi-panel:nth-child(2) .phi-line,
+.phi-panel:nth-child(3) .phi-line { width: 65px; }
+.phi-head {
+  font-size: clamp(2.2rem, 3.5vw, 4.8rem);
+  font-weight: 700; line-height: 1.1; color: var(--white);
+}
+.phi-body {
+  font-size: 15px; font-weight: 300;
+  line-height: 1.85; color: rgba(255,255,255,.52); max-width: 42ch;
+}
+.phi-img { overflow: hidden; }
+.phi-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.phi-txt > * {
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  transition-delay: 0s;
+}
+.phi-txt > *:nth-child(2) { transition-delay: 0.07s; }
+.phi-txt > *:nth-child(3) { transition-delay: 0.14s; }
+.phi-txt > *:nth-child(4) { transition-delay: 0.21s; }
+.phi-panel:not(.phi-active) .phi-txt > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: none;
+}
+.phi-panel.phi-active .phi-txt > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.phi-img img {
+  transition: transform 1.1s cubic-bezier(.16,1,.3,1);
+  transform: scale(1.05);
+}
+.phi-panel.phi-active .phi-img img {
+  transform: scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .phi-txt > * { transition: none; }
+  .phi-img img { transition: none; }
+  .phi-panel:not(.phi-active) .phi-txt > * { opacity: 1; transform: none; }
+  .phi-img img, .phi-panel.phi-active .phi-img img { transform: none; }
+}
+.phi-progress {
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 10px; z-index: 10;
+}
+.phi-dot { width: 32px; height: 1px; background: rgba(255,255,255,.18); transition: background .4s; }
+.phi-dot.on { background: var(--gold); }
+.phi-progress-mob { display: none; }
+.phi-dot-mob { width: 32px; height: 1px; background: rgba(255,255,255,.18); transition: background .4s; }
+.phi-dot-mob.on { background: var(--gold); }
+
+@media (max-width: 768px) {
+  #philosophy { height: auto; }
+  .phi-pin {
+    position: relative;
+    height: auto;
+    overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .phi-pin::-webkit-scrollbar { display: none; }
+  .phi-track {
+    flex-direction: row;
+    width: 300vw; height: auto;
+    transform: none !important;
+  }
+  .phi-panel {
+    width: 100vw; min-width: 100vw; height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: 36vh auto;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .phi-img { grid-row: 1; height: 36vh; }
+  .phi-txt { grid-row: 2; padding: 28px 24px 48px; gap: 18px; justify-content: flex-start; }
+  #phiProgress { display: none; }
+  .phi-progress-mob {
+    display: flex; gap: 10px;
+    position: absolute; bottom: 20px;
+    left: 50%; transform: translateX(-50%);
+    z-index: 10;
+  }
+}
+
+/* ─── MANIFESTO ──────────────────────────────────────── */
+#manifesto {
+  background: var(--black);
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 80px;
+}
+.man-inner {
+  text-align: center; display: flex; flex-direction: column;
+  align-items: center; gap: clamp(72px, 12vw, 130px);
+}
+.man-block { display: flex; flex-direction: column; align-items: center; }
+.man-tag {
+  display: block;
+  font-size: 11px; font-weight: 300;
+  letter-spacing: .38em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+  opacity: 0; transition: opacity 0.35s ease-out;
+}
+.man-tag.vis { opacity: 1; }
+.man-sep {
+  width: 24px; height: 1px; background: var(--gold); margin-bottom: 10px;
+  opacity: 0; transition: opacity 0.35s ease-out;
+}
+.man-sep.vis { opacity: 1; }
+.man-stmt {
+  font-size: clamp(1.68rem, 2.8vw, 3.85rem);
+  font-weight: 200; letter-spacing: 0.1em;
+  color: var(--white); line-height: 1.1;
+  min-height: 1.2em;
+}
+@media (max-width: 768px) {
+  #manifesto { padding: 80px 24px; min-height: auto; padding-top: 100px; padding-bottom: 100px; }
+  .man-stmt { letter-spacing: 0.06em; }
+  .man-tag { font-size: 8.8px; margin-bottom: 7px; }
+  .man-sep { width: 19px; margin-bottom: 7px; }
+}
+
+/* ─ Ticker ─ */
+.ticker-wrap {
+  width: 100%; overflow: hidden;
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,.07);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding: 18px 0;
+}
+.ticker-track {
+  display: flex; white-space: nowrap;
+  animation: tickerMove 22s linear infinite;
+}
+.ticker-txt {
+  font-size: 10px; font-weight: 200;
+  letter-spacing: .38em; text-transform: uppercase;
+  color: rgba(255,255,255,.32);
+  padding: 0 45px;
+}
+.ticker-sep {
+  font-size: 10px; font-weight: 200;
+  color: rgba(255,255,255,.18);
+  flex-shrink: 0;
+}
+@keyframes tickerMove {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (max-width: 768px) {
+  .ticker-track { animation-duration: 9s; }
+}
+
+/* ─── COCKTAIL ────────────────────────────────────────── */
+#cocktail { background: var(--black); padding: 0; }
+
+.cktl-inner { display:grid; grid-template-columns:50% 50%; }
+.cktl-img { height:70vh; overflow:hidden; position:relative; }
+.cktl-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .55s cubic-bezier(.16,1,.3,1); }
+
+.cktl-txt {
+  padding: 120px 80px; display:flex; flex-direction:column; justify-content:center;
+}
+.cktl-txt .gold-line { margin-bottom: 10px; max-width: 47px; }
+.cktl-txt .gold-line.vis { width: 47px; }
+.cktl-title {
+  font-size: clamp(2.4rem, 4vw, 5rem);
+  font-weight: 700; line-height: 1.05;
+  color: var(--white); margin-bottom: 48px; margin-top: 20px;
+}
+.cktl-body {
+  font-size:15px; font-weight:300; line-height:1.85;
+  max-width:380px; color:rgba(255,255,255,.55);
+}
+.cktl-secondary { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+.cktl-sec-img { overflow:hidden; aspect-ratio:16/9; position:relative; }
+.cktl-sec-img img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .55s cubic-bezier(.16,1,.3,1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .cktl-img:hover img { transform:scale(1.03); }
+  .cktl-sec-img:hover img { transform:scale(1.03); }
+}
+
+@media (max-width:768px) {
+  .cktl-inner { grid-template-columns:1fr; }
+  .cktl-img { height:56vw; }
+  .cktl-txt { padding:60px 24px; }
+  .cktl-txt .gold-line { margin-bottom: 7px; }
+  .cktl-title { font-size: clamp(2rem, 8vw, 4rem); }
+  .cktl-secondary { grid-template-columns:1fr; }
+}
+
+/* ─── TEXTURE STRIP ───────────────────────────────────── */
+#texture { background: var(--black); overflow:hidden; padding-top: 0; }
+.tex-strip { display:flex; }
+.tex-item { width:25vw; height:50vh; overflow:hidden; flex-shrink:0; }
+.tex-item img {
+  width: calc(100% + 60px); margin-left: -30px;
+  height:110%; object-fit:cover; display:block;
+  transform:scale(1.05); transition:transform .6s cubic-bezier(.16,1,.3,1);
+}
+@media (hover: hover) and (pointer: fine) { .tex-item:hover img { transform:scale(1.08); } }
+@media (max-width:768px) {
+  #texture { overflow-x: auto; overflow-y: hidden; }
+  .tex-strip { overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .tex-strip::-webkit-scrollbar { display: none; }
+  .tex-item { width: 72vw; flex-shrink: 0; scroll-snap-align: start; }
+}
+
+/* ─── RESERVATION ─────────────────────────────────────── */
+#reservation { background: var(--cream); padding:160px 80px; cursor: default; }
+
+.res-inner { max-width:680px; margin:0 auto; }
+.res-inner .gold-line { max-width: 65px; }
+.res-inner .gold-line.vis { width: 65px; }
+.res-title {
+  font-size: clamp(2.4rem, 4vw, 5rem);
+  font-weight: 700; line-height: 1.1;
+  color: var(--black); margin-bottom:14px; margin-top:0;
+}
+.res-sub {
+  font-size:15px; font-weight:300;
+  color:rgba(0,0,0,.45); margin-bottom:56px; line-height:1.7;
+}
+.res-notes {
+  margin-top: 32px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.res-note {
+  font-size: 12px; font-weight: 300;
+  letter-spacing: .03em; line-height: 1.6;
+  color: rgba(0,0,0,.38); margin: 0;
+}
+.res-note-break { display: inline; }
+@media (max-width: 768px) { .res-note-break { display: block; } }
+
+.fg { margin-bottom:36px; }
+.fg input, .fg select, .fg textarea {
+  width:100%; border:none;
+  border-bottom:1px solid var(--border-l);
+  background:transparent; padding:16px 0;
+  font-family:'DM Sans',sans-serif; font-size:15px;
+  font-weight:300; color:var(--black);
+  outline:none; transition:border-color .3s;
+  -webkit-appearance:none; appearance:none; border-radius:0;
+}
+.fg select {
+  cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%230A0A0A' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 2px center;
+  padding-right:22px;
+}
+.fg textarea { resize:none; min-height:72px; }
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-bottom-color:var(--black); }
+.fg input::placeholder, .fg textarea::placeholder { color:rgba(0,0,0,.3); font-weight:300; }
+
+.fg-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:end; }
+
+.btn-submit {
+  margin-top:44px; display:block; width:100%;
+  background:var(--black); color:var(--cream);
+  padding:18px 48px;
+  font-family:'DM Sans',sans-serif; font-size:13px;
+  font-weight:300; letter-spacing:.2em; text-transform:uppercase;
+  border:none; cursor:pointer; transition:background .3s ease-out, color .3s ease-out;
+}
+.btn-submit:hover { background:#C29B4E; color:var(--black); }
+
+.res-ok {
+  display:none; text-align:center; padding:72px 0;
+  animation:fuAnim .8s cubic-bezier(.16,1,.3,1) forwards;
+}
+.res-ok.show { display:block; }
+@keyframes fuAnim { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.res-ok-line { width:52px; height:1px; background:var(--gold); margin:0 auto 28px; }
+.res-ok h3 {
+  font-size:20px; font-weight:300;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--black); margin-bottom:14px;
+}
+.res-ok p { font-size:15px; font-weight:300; color:rgba(0,0,0,.45); line-height:1.8; }
+
+@media (max-width:768px) {
+  #reservation { padding:80px 24px; }
+  .res-title { font-size: clamp(2rem, 8vw, 4rem); }
+  .fg-row { grid-template-columns:1fr; gap:0; }
+}
+
+/* ─── FINAL CTA ───────────────────────────────────────── */
+#cta {
+  position:relative; height:100vh; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.cta-bg {
+  position:absolute; inset:0;
+  background: url('07_CTA/esterno_notturno.jpg') center/cover no-repeat;
+  will-change:transform;
+}
+.cta-ov { position:absolute; inset:0; background:rgba(0,0,0,.5); }
+.cta-body { position:relative; z-index:2; text-align:center; padding:0 40px; }
+
+.cta-title {
+  font-size: clamp(2rem, 4vw, 5.5rem);
+  font-weight: 700; line-height: 1.15;
+  color: var(--white); max-width: 820px;
+  margin: 0 auto 44px;
+}
+.btn-cta {
+  display:inline-block; font-size:13px; font-weight:300;
+  letter-spacing:.3em; text-transform:uppercase;
+  color:var(--white); border:1px solid rgba(255,255,255,.55);
+  padding:16px 48px; text-decoration:none;
+  transition:background .3s ease-out, color .3s ease-out;
+}
+.btn-cta:hover { background:var(--white); color:var(--black); }
+#ctaTitle {
+  opacity: 0; transform: translateY(50px);
+  transition: opacity 1.1s cubic-bezier(.16,1,.3,1), transform 1.1s cubic-bezier(.16,1,.3,1);
+}
+#ctaTitle.vis { opacity: 1; transform: translateY(0); }
+#ctaBtn {
+  opacity: 0; transform: translateX(-44px);
+  transition: background .3s ease-out, color .3s ease-out, opacity .9s cubic-bezier(.16,1,.3,1) .35s, transform .9s cubic-bezier(.16,1,.3,1) .35s;
+}
+#ctaBtn.vis { opacity: 1; transform: translateX(0); }
+
+@media (max-width:768px) {
+  .cta-title { font-size: clamp(1.8rem, 6vw, 3rem); }
+}
+
+/* ─── FOOTER ──────────────────────────────────────────── */
+footer { background: var(--black); padding: 80px 80px 40px; }
+.ft-main { max-width: 1400px; margin: 0 auto; }
+.ft-logo-wrap {
+  border-bottom: 1px solid var(--border-d);
+  padding-bottom: 44px; margin-bottom: 44px;
+}
+.ft-logo {
+  display: block;
+  font-size: clamp(5rem, 14vw, 16rem);
+  font-weight: 200; letter-spacing: .2em;
+  color: var(--white); line-height: .9;
+  margin-left: -0.05em;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.4s cubic-bezier(.16,1,.3,1);
+}
+.ft-logo.vis { clip-path: inset(0% 0 0 0); }
+.ft-tag {
+  display: block; margin-top: 20px;
+  font-size: 11px; font-weight: 300;
+  letter-spacing: .32em; text-transform: uppercase;
+  color: rgba(255,255,255,.28);
+}
+.ft-row {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 56px;
+  margin-bottom: 56px;
+}
+.ft-address, .ft-hours {
+  font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,.38); line-height: 1.9;
+}
+.ft-address { margin-bottom: 18px; }
+.ft-link {
+  display: block; font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,.38); text-decoration: none;
+  transition: color .3s ease-out; line-height: 1.9;
+}
+.ft-link:hover { color: var(--white); }
+.ft-nav { display: flex; flex-direction: column; gap: 6px; }
+.ft-nav a {
+  font-size: 13px; font-weight: 300;
+  letter-spacing: .08em; color: rgba(255,255,255,.38);
+  text-decoration: none; transition: color .3s ease-out; line-height: 1.9;
+}
+.ft-nav a:hover { color: var(--white); }
+.ft-contact { display: flex; flex-direction: column; align-items: flex-start; }
+.ft-bar {
+  border-top: 1px solid var(--border-d);
+  padding-top: 22px; max-width: 1400px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.ft-copy {
+  font-size: 11px; font-weight: 300;
+  color: rgba(255,255,255,.26); letter-spacing: .04em;
+}
+@media (max-width: 768px) {
+  footer { padding: 56px 24px 32px; }
+  .ft-logo { font-size: clamp(3.5rem, 18vw, 6rem); }
+  .ft-row { flex-direction: column; gap: 36px; }
+  .ft-bar { flex-direction: column; gap: 10px; text-align: center; }
+}
+
+/* ─── FOCUS VISIBLE ──────────────────────────────────── */
+:focus-visible {
+  outline: 1px solid #C29B4E;
+  outline-offset: 4px;
+}
+.fg input:focus-visible,
+.fg select:focus-visible,
+.fg textarea:focus-visible {
+  outline: none;
+}
+
+/* ─── SKIP LINK ───────────────────────────────────────── */
+.skip-link {
+  position: fixed; top: -100%; left: 0;
+  background: var(--gold); color: var(--black);
+  padding: 10px 24px; z-index: 99999;
+  font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+  text-decoration: none; transition: top .2s;
+}
+.skip-link:focus { top: 0; }
+
+/* ─── FLOATING LABELS ─────────────────────────────────── */
+.fg { position: relative; }
+.fg-fl { padding-top: 20px; }
+.fg-fl input, .fg-fl textarea { padding-top: 4px; padding-bottom: 14px; }
+.fg-fl label {
+  position: absolute; left: 0; top: 18px;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 300;
+  color: rgba(0,0,0,.3); pointer-events: none;
+  transition: top .2s cubic-bezier(.16,1,.3,1), font-size .2s, letter-spacing .2s, color .2s;
+}
+.fg-fl input:not(:placeholder-shown) ~ label,
+.fg-fl input:focus ~ label,
+.fg-fl textarea:not(:placeholder-shown) ~ label,
+.fg-fl textarea:focus ~ label {
+  top: 2px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(0,0,0,.4);
+}
+.fg-fl input:focus ~ label, .fg-fl textarea:focus ~ label { color: var(--black); }
+.fg-fl input[type="date"] ~ label { top: 2px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: rgba(0,0,0,.4); }
+.fg-fl input[type="date"]:focus ~ label { color: var(--black); }
+input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: pointer; }
+
+/* ─── CTA BOLDER ──────────────────────────────────────── */
+.cta-body {
+  position: absolute;
+  bottom: 80px; left: 80px; right: 80px;
+  text-align: left; padding: 0; z-index: 2;
+}
+.cta-title {
+  font-size: clamp(2.8rem, 5.5vw, 8rem);
+  max-width: 860px; margin: 0 0 44px;
+}
+@media (max-width:768px) {
+  .cta-body { bottom: 56px; left: 24px; right: 24px; }
+  .cta-title { font-size: clamp(2rem, 7vw, 3.5rem); }
+}
+
+/* ─── PREFERS REDUCED MOTION ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .fu { opacity: 1 !important; transform: none !important; }
+  .chef-quote-reveal { opacity: 1 !important; transform: none !important; }
+  .clip-r { clip-path: none !important; }
+  .wipe-l, .wipe-r { opacity: 1 !important; transform: none !important; }
+  .man-tag, .man-sep { transition-duration: 0.35s !important; }
+  .man-stmt { transition-duration: 0s !important; }
+  .gold-line { width: 56px !important; }
+  .hero-label, .hero-title, .hero-tagline, .hero-btns {
+    opacity: 1 !important; transform: none !important;
+  }
+  .pre-logo span { opacity: 1 !important; transform: none !important; filter: none !important; }
+
+  .pre-line { width: 180px !important; }
+#preloader.out { display: none !important; }
+  .hero-bg, .cta-bg { will-change: auto; }
+  .hero-title { filter: none !important; }
+}
+</style>
+</head>
+<body class="loading">
+<div id="cursor" aria-hidden="true"></div>
+
+<a href="#experience" class="skip-link">Skip to content</a>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-logo" id="preLogo"></div>
+  <div class="pre-line"></div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#experience" onclick="closeMob()" data-en="Experience" data-it="Esperienza">Experience</a>
+  <a href="#menu" onclick="closeMob();resetCarousel()">Menu</a>
+  <a href="#chef" onclick="closeMob()">Chef</a>
+  <a href="#reservation" onclick="closeMob()" data-en="Reserve" data-it="Prenota">Reserve</a>
+  <button class="mob-lang-btn" onclick="toggleLang()" aria-label="Switch language">
+    <span class="lopt on" id="lEN2">EN</span>
+    <span class="lsep">|</span>
+    <span class="lopt" id="lIT2">IT</span>
+  </button>
+</div>
+
+<!-- NAVBAR -->
+<div id="scroll-progress"></div>
+<nav id="navbar">
+  <a href="#" class="nav-logo">NOCTIS</a>
+  <ul class="nav-links">
+    <li><a href="#experience" data-en="Experience" data-it="Esperienza">Experience</a></li>
+    <li><a href="#menu" onclick="resetCarousel()">Menu</a></li>
+    <li><a href="#chef">Chef</a></li>
+    <li><a href="#reservation" data-en="Reserve" data-it="Prenota">Reserve</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()" aria-label="Switch language">
+      <span class="lopt on" id="lEN">EN</span>
+      <span class="lsep">|</span>
+      <span class="lopt" id="lIT">IT</span>
+    </button>
+    <a href="#reservation" class="nav-cta" data-en="Reserve" data-it="Prenota">Reserve</a>
+  </div>
+  <button class="burger" id="burger" onclick="toggleMob()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-ov1"></div>
+  <div class="hero-ov2"></div>
+  <div class="hero-infobar">
+    <span class="hero-coords">51.5074° N · 0.1278° W</span>
+    <div class="hero-clock" id="heroClock">
+      <span class="hero-clock-label">London</span>
+      <span class="hero-clock-time" id="heroTime">00:00</span>
+    </div>
+  </div>
+  <div class="hero-body">
+    <div class="hero-label" id="hLabel" data-en="Tokyo · London · Est. 2026" data-it="Tokyo · Londra · Est. 2026">Tokyo · London · Est. 2026</div>
+    <h1 class="hero-title" id="hTitle">NOCTIS</h1>
+    <p class="hero-tagline" id="hTagline" data-en="Dining beyond perception." data-it="Il gusto oltre la percezione.">Dining beyond perception.</p>
+    <div class="hero-btns" id="hBtns">
+      <a href="#reservation" class="btn-gold"><span data-en="Reserve Experience" data-it="Prenota l'Esperienza">Reserve Experience</span></a>
+      <a href="#experience" class="btn-ghost" data-en="Explore" data-it="Scopri">Explore</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ────────────────────────────────────────── -->
+<section id="experience">
+  <div class="exp-inner">
+    <div class="exp-left">
+      <div class="gold-line fu"></div><br>
+      <div class="s-header">
+        <span class="sec-num">01</span>
+        <span class="s-label fu d1" data-en="The Experience" data-it="L'Esperienza">The Experience</span>
+      </div>
+      <h2 class="exp-title fu d2" data-en="An encounter<br>with the<br>extraordinary." data-it="Un incontro<br>con lo<br>straordinario.">An encounter<br>with the<br>extraordinary.</h2>
+      <p class="exp-body fu d3"
+        data-en="Japanese precision, Western restraint, and a room designed to slow perception."
+        data-it="Precisione giapponese, controllo occidentale e uno spazio progettato per rallentare la percezione.">
+        Japanese precision, Western restraint, and a room designed to slow perception.
+      </p>
+    </div>
+    <div class="exp-right">
+      <div class="exp-img-wrap fu">
+        <img src="02_MAIN/corridoio_ingresso.jpg" alt="The entrance corridor, dark lacquered walls converging toward the dining room" loading="lazy">
+        <div class="gal-ov"><span class="gal-loc" data-en="The Entrance" data-it="L'Ingresso">The Entrance</span></div>
+      </div>
+      <div class="exp-img-wrap fu">
+        <img src="02_MAIN/hero_sala.jpg" alt="The main dining hall at dusk, stone surfaces and low light across thirty covers" loading="lazy">
+        <div class="gal-ov"><span class="gal-loc" data-en="The Dining Hall" data-it="La Sala">The Dining Hall</span></div>
+      </div>
+      <div class="exp-img-wrap fu">
+        <img src="02_MAIN/lounge.jpg" alt="The lounge anteroom, polished surfaces and warm shadow" loading="lazy">
+        <div class="gal-ov"><span class="gal-loc" data-en="The Bar" data-it="Il Bar">The Bar</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY ────────────────────────────────────────── -->
+<section id="philosophy">
+  <div class="phi-pin">
+    <div class="phi-track" id="phiTrack">
+
+      <div class="phi-panel">
+        <div class="phi-txt">
+          <span class="phi-num"><span class="phi-n">01</span><span class="phi-word" data-en="EARTH" data-it="TERRA">EARTH</span></span>
+          <div class="phi-line"></div>
+          <h2 class="phi-head" data-en="From source<br>to stone." data-it="Dalla fonte<br>alla pietra.">From source<br>to stone.</h2>
+          <p class="phi-body" data-en="Before it becomes cuisine, it exists in its purest form — untouched, elemental, honest. A single ingredient presented without distraction, carrying the weight of origin and season." data-it="Prima di diventare cucina, esiste nella sua forma più pura: intatta, elementale, onesta. Un solo ingrediente presentato senza distrazioni, che porta il peso dell'origine e della stagione.">Before it becomes cuisine, it exists in its purest form — untouched, elemental, honest. A single ingredient presented without distraction, carrying the weight of origin and season.</p>
+        </div>
+        <div class="phi-img">
+          <img src="step/riccio.PNG" alt="Sea urchin in its purest form, elemental and honest" loading="lazy">
+        </div>
+      </div>
+
+      <div class="phi-panel">
+        <div class="phi-txt">
+          <span class="phi-num"><span class="phi-n">02</span><span class="phi-word" data-en="STEEL" data-it="ACCIAIO">STEEL</span></span>
+          <div class="phi-line"></div>
+          <h2 class="phi-head" data-en="The knife<br>moves once." data-it="Il coltello<br>si muove una volta.">The knife<br>moves once.</h2>
+          <p class="phi-body" data-en="Precision is not decoration. Controlled, deliberate, final — the dish is resolved long before it reaches the table." data-it="La precisione non è decorazione. Controllato, deliberato, definitivo — il piatto è risolto molto prima di raggiungere la tavola.">Precision is not decoration. Controlled, deliberate, final — the dish is resolved long before it reaches the table.</p>
+        </div>
+        <div class="phi-img">
+          <img src="step/tonno.PNG" alt="Tuna, controlled and deliberate, precision before the plate" loading="lazy">
+        </div>
+      </div>
+
+      <div class="phi-panel">
+        <div class="phi-txt">
+          <span class="phi-num"><span class="phi-n">03</span><span class="phi-word" data-en="FIRE" data-it="FUOCO">FIRE</span></span>
+          <div class="phi-line"></div>
+          <h2 class="phi-head" data-en="Fire finishes what<br>precision begins." data-it="Il fuoco completa<br>ciò che la precisione inizia.">Fire finishes what<br>precision begins.</h2>
+          <p class="phi-body" data-en="Heat is the last transformation. Smoke, ember, tension — the moment where discipline steps back, and something else takes over." data-it="Il calore è l'ultima trasformazione. Fumo, brace, tensione: il momento in cui la disciplina si fa da parte, e qualcos'altro prende il sopravvento.">Heat is the last transformation. Smoke, ember, tension — the moment where discipline steps back, and something else takes over.</p>
+        </div>
+        <div class="phi-img">
+          <img src="step/fuoco.PNG" alt="Fire — the last transformation, where technique becomes memory" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+    <div class="phi-progress" id="phiProgress">
+      <div class="phi-dot on"></div>
+      <div class="phi-dot"></div>
+      <div class="phi-dot"></div>
+    </div>
+  </div>
+  <div class="phi-progress-mob" id="phiProgressMob">
+    <div class="phi-dot-mob on"></div>
+    <div class="phi-dot-mob"></div>
+    <div class="phi-dot-mob"></div>
+  </div>
+</section>
+
+<!-- ── OMAKASE ───────────────────────────────────────────── -->
+<section id="omakase">
+  <div class="oma-inner">
+    <span class="oma-word fu d1">Omakase</span>
+    <span class="oma-sub fu d2" data-en="I leave it to you." data-it="Mi affido a te.">I leave it to you.</span>
+    <div class="oma-rule fu d3"></div>
+    <p class="oma-body fu d4" data-en="A single menu, twelve courses, shaped by the season." data-it="Un solo menu, dodici portate, plasmato dalla stagione.">A single menu, twelve courses, shaped by the season.</p>
+    <p class="oma-body fu" style="transition-delay:.9s" data-en="You bring nothing but presence." data-it="Porta solo la tua presenza.">You bring nothing but presence.</p>
+    <p class="oma-body fu" style="transition-delay:1.4s" data-en="The rest belongs to the kitchen." data-it="Il resto appartiene alla cucina.">The rest belongs to the kitchen.</p>
+  </div>
+</section>
+
+<!-- ── DISHES ─────────────────────────────────────────────── -->
+<section id="menu">
+  <div class="dishes-hd">
+    <div class="gold-line fu"></div><br>
+    <div class="s-header">
+      <span class="sec-num">02</span>
+      <span class="s-label fu d1" data-en="Signature Dishes" data-it="Piatti Firma">Signature Dishes</span>
+    </div>
+    <h2 class="dishes-title fu d2" data-en="The art of the plate." data-it="L'arte del piatto.">The art of the plate.</h2>
+  </div>
+  <div class="carousel" id="carousel">
+    <div class="d-card">
+      <div class="d-img z10"><img src="03_DISHES/nigiri_otoro.jpg" alt="Otoro Nigiri"></div>
+      <div class="d-name">Otoro Nigiri</div>
+      <div class="d-desc" data-en="Otoro, yuzu kosho, gold leaf" data-it="Otoro, yuzu kosho, foglia d'oro">Otoro, yuzu kosho, gold leaf</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img z2"><img src="03_DISHES/brodo_dashi.jpg" alt="Wagyu Tataki" loading="lazy"></div>
+      <div class="d-name">Wagyu Tataki</div>
+      <div class="d-desc" data-en="A5 wagyu, black truffle, ponzu" data-it="Wagyu A5, tartufo nero, ponzu">A5 wagyu, black truffle, ponzu</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img"><img src="03_DISHES/melanzana_miso.jpg" alt="Dashi Broth" loading="lazy"></div>
+      <div class="d-name">Dashi Broth</div>
+      <div class="d-desc" data-en="Silken tofu, matsutake, yuzu dashi" data-it="Tofu di seta, matsutake, dashi yuzu">Silken tofu, matsutake, yuzu dashi</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img z12"><img src="03_DISHES/hamachi_crudo.jpg" alt="Hamachi Crudo" loading="lazy"></div>
+      <div class="d-name">Hamachi Crudo</div>
+      <div class="d-desc" data-en="Hamachi, yuzu, green apple, shiso" data-it="Hamachi, yuzu, mela verde, shiso">Hamachi, yuzu, green apple, shiso</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img"><img src="03_DISHES/astice_blu.jpg" alt="Blue Lobster Bisque" loading="lazy"></div>
+      <div class="d-name">Blue Lobster Bisque</div>
+      <div class="d-desc" data-en="Blue lobster, bisque miso, nori" data-it="Aragosta blu, bisque miso, nori">Blue lobster, bisque miso, nori</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img z13"><img src="03_DISHES/hokkaido_scallop.jpg" alt="Hokkaido Scallop" loading="lazy"></div>
+      <div class="d-name">Hokkaido Scallop</div>
+      <div class="d-desc" data-en="Hokkaido scallop, brown butter ponzu, finger lime" data-it="Capesante Hokkaido, ponzu al burro nocciola, finger lime">Hokkaido scallop, brown butter ponzu, finger lime</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img"><img src="03_DISHES/salmone_grigliato.jpg" alt="Salmon Shio-Koji" loading="lazy"></div>
+      <div class="d-name">Salmon Shio-Koji</div>
+      <div class="d-desc" data-en="Salmon shio-koji, dashi beurre blanc, sudachi" data-it="Salmone shio-koji, dashi beurre blanc, sudachi">Salmon shio-koji, dashi beurre blanc, sudachi</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img z12"><img src="03_DISHES/black_cod_miso.jpg" alt="Black Cod Saikyo Miso" loading="lazy"></div>
+      <div class="d-name">Black Cod Saikyo Miso</div>
+      <div class="d-desc" data-en="Black cod, saikyo miso, daikon, kinome" data-it="Merluzzo nero, miso saikyo, daikon, kinome">Black cod, saikyo miso, daikon, kinome</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img"><img src="03_DISHES/wagyu_tataki.jpg" alt="Nasu Dengaku" loading="lazy"></div>
+      <div class="d-name">Nasu Dengaku</div>
+      <div class="d-desc" data-en="Roasted eggplant, white miso, gobo" data-it="Melanzana arrosto, miso bianco, gobo">Roasted eggplant, white miso, gobo</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img"><img src="03_DISHES/yuzu_granita.jpg" alt="Yuzu Granita" loading="lazy"></div>
+      <div class="d-name">Yuzu Granita</div>
+      <div class="d-desc" data-en="Yuzu granita, fresh yuzu, shiso" data-it="Granita di yuzu, yuzu fresco, shiso">Yuzu granita, fresh yuzu, shiso</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img z135"><img src="03_DISHES/dessert_cioccolato.jpg" alt="Matcha Sphere" loading="lazy"></div>
+      <div class="d-name">Matcha Sphere</div>
+      <div class="d-desc" data-en="Dark chocolate, yuzu cream, sesame" data-it="Cioccolato fondente, crema yuzu, sesamo">Dark chocolate, yuzu cream, sesame</div>
+    </div>
+    <div class="d-card">
+      <div class="d-img z35"><img src="03_DISHES/petit_four.jpg" alt="Petit Fours" loading="lazy"></div>
+      <div class="d-name">Petit Fours</div>
+      <div class="d-desc" data-en="Mochi, Nama Chocolate, Yuzu Brûlée" data-it="Mochi, cioccolato nama, brûlée allo yuzu">Mochi, Nama Chocolate, Yuzu Brûlée</div>
+    </div>
+  </div>
+  <div class="c-nav">
+    <button class="c-btn prv" onclick="slide(-1)"><span class="c-line"></span><span data-en="Prev" data-it="Prec">Prev</span></button>
+    <button class="c-btn nxt" onclick="slide(1)"><span data-en="Next" data-it="Succ">Next</span><span class="c-line"></span></button>
+  </div>
+</section>
+
+<!-- ── CHEF ───────────────────────────────────────────────── -->
+<section id="chef">
+  <div class="chef-inner">
+    <div class="chef-txt">
+      <div class="gold-line fu"></div><br>
+      <div class="s-header">
+        <span class="sec-num">03</span>
+        <p class="chef-sub fu" style="margin:0">Executive Chef · NOCTIS</p>
+      </div>
+      <h2 class="chef-title fu d1">Ren<br>Takahashi.</h2>
+      <p class="chef-bio fu d2"
+        data-en="Trained between Tokyo and London, Ren Takahashi builds each course as a quiet composition of fire, texture and restraint."
+        data-it="Formatosi tra Tokyo e Londra, Ren Takahashi costruisce ogni portata come una composizione silenziosa di fuoco, materia e controllo.">
+        Trained between Tokyo and London, Ren Takahashi builds each course as a quiet composition of fire, texture and restraint.
+      </p>
+    </div>
+    <div class="chef-photo clip-r">
+      <img src="04_CHEF/chef_portrait.jpg" alt="Chef Ren Takahashi" loading="lazy">
+    </div>
+  </div>
+  <div class="chef-wide">
+    <img class="clip-r" src="04_CHEF/chef_azione.jpg" alt="Chef at work" loading="lazy">
+    <div class="chef-wide-ov">
+      <p class="chef-quote chef-quote-reveal" data-en="&quot;Every detail is designed<br>to disappear into memory.&quot;" data-it="&quot;Ogni dettaglio è progettato<br>per dissolversi nel ricordo.&quot;">"Every detail is designed<br>to disappear into memory."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── TICKER ───────────────────────────────────────────────── -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-txt">ENTRUSTED</span><span class="ticker-sep">·</span><span class="ticker-txt">SILENCE</span><span class="ticker-sep">·</span><span class="ticker-txt">THIRTY COVERS</span><span class="ticker-sep">·</span><span class="ticker-txt">NOCTIS</span><span class="ticker-sep">·</span><span class="ticker-txt">LONDON</span><span class="ticker-sep">·</span><span class="ticker-txt">BEYOND PERCEPTION</span><span class="ticker-sep">·</span><span class="ticker-txt">EST. 2026</span><span class="ticker-sep">·</span><span class="ticker-txt">ENTRUSTED</span><span class="ticker-sep">·</span><span class="ticker-txt">SILENCE</span><span class="ticker-sep">·</span><span class="ticker-txt">THIRTY COVERS</span><span class="ticker-sep">·</span><span class="ticker-txt">NOCTIS</span><span class="ticker-sep">·</span><span class="ticker-txt">LONDON</span><span class="ticker-sep">·</span><span class="ticker-txt">BEYOND PERCEPTION</span><span class="ticker-sep">·</span><span class="ticker-txt">EST. 2026</span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- ── MANIFESTO ──────────────────────────────────────────── -->
+<section id="manifesto">
+  <div class="man-inner">
+    <div class="man-block">
+      <span class="man-tag" id="manTag1" data-en="Not chosen." data-it="Non scelto.">Not chosen.</span>
+      <div class="man-sep" id="manSep1"></div>
+      <p class="man-stmt" id="manStmt1" data-text-en="Entrusted." data-text-it="Affidato."></p>
+    </div>
+    <div class="man-block">
+      <span class="man-tag" id="manTag2" data-en="Not spectacle." data-it="Non spettacolo.">Not spectacle.</span>
+      <div class="man-sep" id="manSep2"></div>
+      <p class="man-stmt" id="manStmt2" data-text-en="Silence." data-text-it="Silenzio."></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="gal-hd">
+    <div class="gold-line fu"></div>
+    <span class="s-label gal-label-center gal-lbl" data-en="The Space" data-it="Lo Spazio">The Space</span>
+    <h2 class="gal-title gal-ttl" data-en="Where architecture<br>becomes sensation." data-it="Dove l'architettura<br>diventa sensazione.">Where architecture<br>becomes sensation.</h2>
+  </div>
+  <div class="masonry">
+    <div class="gal-item clip-r"><img src="08_GALLERY/vista_alto.jpg" alt="Aerial view from the mezzanine: geometry of tables and pools of light below" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Aerial View" data-it="Vista Aerea">Aerial View</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/sala_grande.jpg" alt="The main hall: thirty covers in precise arrangement, brass overhead, stone below" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Main Hall" data-it="Sala Principale">Main Hall</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/tavolo_per_due.jpg" alt="A table for two, dark lacquer surface, single stem, minimal setting" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Table for Two" data-it="Tavolo per Due">Table for Two</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/dettaglio_tavolo.jpg" alt="Table detail: stone chopstick rest, pressed cloth, dark glazed ceramic" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Table Detail" data-it="Dettaglio Tavola">Table Detail</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/soffitto_ottone.jpg" alt="Brass ceiling, oxidised patina, structured geometry catching low light" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Brass Ceiling" data-it="Soffitto in Ottone">Brass Ceiling</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/terrazza_alto.PNG" alt="The terrace seen from above, city grid dissolving into darkness below" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Elevation" data-it="Elevazione">Elevation</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/dettaglio_legno.jpg" alt="Timber wall panel, dark grain and shadow, material precision" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Materials" data-it="Materiali">Materials</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/cucina_aperta.jpg" alt="The open kitchen, chefs in motion, steam rising against dark steel" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Open Kitchen" data-it="Cucina Aperta">Open Kitchen</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/bar.jpg" alt="The bar at rest, dark stone surface, bottles standing in measured rows" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="The Lounge" data-it="Il Lounge">The Lounge</span></div></div>
+    <div class="gal-item clip-r"><img src="08_GALLERY/terrazza.jpg" alt="The terrace from height, parapet edge and city skyline beyond" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Terrace" data-it="Terrazza">Terrace</span></div></div>
+  </div>
+  <div class="gal-hd">
+    <div class="gold-line fu"></div>
+    <span class="s-label gal-label-center gal-lbl" data-en="The Bar" data-it="Il Bar">The Bar</span>
+    <h2 class="gal-title gal-ttl" data-en="Liquid poetry." data-it="Poesia liquida.">Liquid poetry.</h2>
+  </div>
+</section>
+
+<!-- ── COCKTAIL ───────────────────────────────────────────── -->
+<section id="cocktail">
+  <div class="cktl-inner">
+    <div class="cktl-img clip-r">
+      <img src="05_COCKTAIL/mano_versa.jpg" alt="Bar" loading="lazy">
+      <div class="gal-ov"><span class="gal-loc" data-en="Yoru" data-it="Yoru">Yoru</span></div>
+    </div>
+    <div class="cktl-txt">
+      <div class="gold-line fu"></div>
+      <span class="s-label fu d1" data-en="The Programme" data-it="Il Programma">The Programme</span>
+      <h2 class="cktl-title fu d2" data-en="Crafted by intention." data-it="Creato con intenzione.">Crafted by intention.</h2>
+      <p class="cktl-body fu d3"
+        data-en="Our bar mirrors the kitchen's philosophy — Japanese ingredients, Western technique, singular results."
+        data-it="Il nostro bar rispecchia la filosofia della cucina — ingredienti giapponesi, tecnica occidentale, risultati unici.">
+        Our bar mirrors the kitchen's philosophy — Japanese ingredients, Western technique, singular results.
+      </p>
+    </div>
+  </div>
+  <div class="cktl-secondary">
+    <div class="cktl-sec-img clip-r"><img src="05_COCKTAIL/due_cocktail.jpg" alt="Two cocktails on stone, smoke lifting in backlight" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Kemuri" data-it="Kemuri">Kemuri</span></div></div>
+    <div class="cktl-sec-img clip-r"><img src="05_COCKTAIL/signature_coupe.jpg" alt="A coupe held against darkness, amber liquid refracting low light" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Kohaku" data-it="Kohaku">Kohaku</span></div></div>
+  </div>
+</section>
+
+<!-- ── TEXTURE STRIP ──────────────────────────────────────── -->
+<section id="texture">
+  <div class="gal-hd">
+    <div class="gold-line fu"></div>
+    <span class="s-label gal-label-center gal-lbl" data-en="The Detail" data-it="Il Dettaglio">The Detail</span>
+    <h2 class="gal-title gal-ttl" data-en="Where matter speaks." data-it="Dove la materia parla.">Where matter speaks.</h2>
+  </div>
+  <div class="tex-strip" id="texStrip">
+    <div class="tex-item"><img src="06_TEXTURE/foglia_oro.jpg" alt="Gold leaf on dark stone, texture and weight" loading="lazy"></div>
+    <div class="tex-item"><img src="06_TEXTURE/ingredienti_pietra.jpg" alt="Japanese ingredients laid on black stone, arranged with precision" loading="lazy"></div>
+    <div class="tex-item"><img src="06_TEXTURE/vapore_controluce.jpg" alt="Steam rising in backlight, white against black" loading="lazy"></div>
+    <div class="tex-item"><img src="06_TEXTURE/bacchette_pietra.jpg" alt="Chopsticks resting on stone, a minimal composition" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- ── RESERVATION ────────────────────────────────────────── -->
+<section id="reservation">
+  <div class="res-inner">
+    <div class="gold-line fu"></div><br>
+    <div class="s-header">
+      <span class="sec-num">04</span>
+      <span class="s-label fu d1" data-en="Reservations" data-it="Prenotazioni">Reservations</span>
+    </div>
+    <h2 class="res-title fu d2" data-en="Reserve your night." data-it="Prenota la tua serata.">Reserve your night.</h2>
+    <p class="res-sub fu d3"
+      data-en="An experience limited to thirty covers per evening."
+      data-it="Un'esperienza limitata a trenta coperti per serata.">
+      An experience limited to thirty covers per evening.
+    </p>
+    <form id="resForm" class="fu d4" onsubmit="submitForm(event)">
+      <div class="fg fg-fl">
+        <input type="text" id="fname" placeholder=" " required autocomplete="name" maxlength="100">
+        <label for="fname" data-en="Full Name" data-it="Nome Completo">Full Name</label>
+      </div>
+      <div class="fg fg-fl">
+        <input type="email" id="femail" placeholder=" " required autocomplete="email">
+        <label for="femail">Email</label>
+      </div>
+      <div class="fg-row">
+        <div class="fg fg-fl">
+          <input type="date" id="fdate" required>
+          <label for="fdate" data-en="Date" data-it="Data">Date</label>
+        </div>
+        <div class="fg" style="padding-top:20px">
+          <select id="fguests" required aria-label="Number of guests">
+            <option value="" disabled selected data-en="Guests" data-it="Ospiti">Guests</option>
+            <option>1–2</option>
+            <option>3–4</option>
+            <option>5–6</option>
+            <option>Private</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <select id="fexperience" required aria-label="Type of experience">
+          <option value="" disabled selected data-en="Experience" data-it="Esperienza">Experience</option>
+          <option data-en="Omakase Tasting · 12 courses" data-it="Degustazione Omakase · 12 portate">Omakase Tasting · 12 courses</option>
+          <option data-en="Chef's Table Experience" data-it="Esperienza al Tavolo dello Chef">Chef's Table Experience</option>
+          <option data-en="Private Dining" data-it="Sala Privata">Private Dining</option>
+        </select>
+      </div>
+      <div class="fg fg-fl">
+        <textarea id="fnotes" placeholder=" " rows="3"></textarea>
+        <label for="fnotes" data-en="Special requests" data-it="Richieste speciali">Special requests</label>
+      </div>
+      <button type="submit" class="btn-submit" data-en="Reserve Your Night" data-it="Prenota la Tua Serata">Reserve Your Night</button>
+    </form>
+    <div class="res-notes fu d5">
+      <p class="res-note"><span data-en="Dietary requirements —" data-it="Esigenze alimentari —">Dietary requirements —</span><span class="res-note-break" data-en=" please note them in the special requests field." data-it=" indicatele nel campo richieste speciali."> please note them in the special requests field.</span></p>
+      <p class="res-note" data-en="Cancellations — 48 hours notice required." data-it="Cancellazioni — è richiesto un preavviso di 48 ore.">Cancellations — 48 hours notice required.</p>
+    </div>
+    <div class="res-ok" id="resOk">
+      <div class="res-ok-line"></div>
+      <h3 data-en="Reservation Received" data-it="Prenotazione Ricevuta">Reservation Received</h3>
+      <p data-en="We will be in touch within 24 hours<br>to confirm the details of your evening." data-it="Ci metteremo in contatto entro 24 ore<br>per confermare i dettagli della tua serata.">We will be in touch within 24 hours<br>to confirm the details of your evening.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ──────────────────────────────────────────── -->
+<section id="cta">
+  <div class="cta-bg" id="ctaBg"></div>
+  <div class="cta-ov"></div>
+  <div class="cta-body">
+    <h2 class="cta-title" id="ctaTitle" data-en="Where the meal<br>becomes memory." data-it="Dove il pasto<br>diventa ricordo.">Where the meal<br>becomes memory.</h2>
+    <a href="#reservation" class="btn-cta" id="ctaBtn" data-en="Reserve Your Night" data-it="Prenota la Tua Serata">Reserve Your Night</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="ft-main">
+    <div class="ft-logo-wrap">
+      <span class="ft-logo">NOCTIS</span>
+      <span class="ft-tag" data-en="Dining beyond perception." data-it="Il gusto oltre la percezione.">Dining beyond perception.</span>
+    </div>
+    <div class="ft-row">
+      <div class="ft-info">
+        <p class="ft-address">12 Nightingale Lane<br>London, EC1A 2BP</p>
+        <p class="ft-hours" data-en="Tue–Sun · 19:00–23:00<br>Monday closed" data-it="Mar–Dom · 19:00–23:00<br>Lunedì chiuso">Tue–Sun · 19:00–23:00<br>Monday closed</p>
+      </div>
+      <div class="ft-nav">
+        <a href="#experience" data-en="Experience" data-it="Esperienza">Experience</a>
+        <a href="#menu" onclick="resetCarousel()">Menu</a>
+        <a href="#chef">Chef</a>
+        <a href="#gallery" data-en="The Space" data-it="Lo Spazio">The Space</a>
+        <a href="#reservation" data-en="Reserve" data-it="Prenota">Reserve</a>
+      </div>
+      <div class="ft-contact">
+        <a href="mailto:reservations@noctis.com" class="ft-link">reservations@noctis.com</a>
+        <a href="#" class="ft-link">@noctis.london</a>
+        <a href="#reservation" class="btn-gold" style="margin-top:24px"><span data-en="Reserve a Table" data-it="Prenota un Tavolo">Reserve a Table</span></a>
+      </div>
+    </div>
+    <div class="ft-bar">
+      <span class="ft-copy" data-en="© 2026 NOCTIS. All rights reserved." data-it="© 2026 NOCTIS. Tutti i diritti riservati.">© 2026 NOCTIS. All rights reserved.</span>
+      <span class="ft-copy">London · Fine Dining · Est. 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+window.addEventListener('load', () => requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, 0))));
+window.addEventListener('pageshow', e => { if (e.persisted) window.scrollTo(0, 0); });
+
+// iOS Safari uses clip-path as a render hint to skip image loading — switch to opacity reveal
+if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+  document.documentElement.classList.add('ios-safari');
+}
+
+// ── LANGUAGE ─────────────────────────────────────────────────
+let lang = 'en';
+function toggleLang() {
+  lang = lang === 'en' ? 'it' : 'en';
+  document.documentElement.lang = lang;
+  ['lEN','lEN2'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('on', lang === 'en'); });
+  ['lIT','lIT2'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('on', lang === 'it'); });
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.it;
+  });
+  document.querySelectorAll('[data-text-en]').forEach(el => {
+    if (el.textContent.trim()) {
+      el.textContent = lang === 'en' ? el.dataset.textEn : el.dataset.textIt;
+    }
+  });
+}
+
+// ── PRELOADER ────────────────────────────────────────────────
+(function() {
+  const logo = document.getElementById('preLogo');
+  'NOCTIS'.split('').forEach((ch, i) => {
+    const s = document.createElement('span');
+    s.textContent = ch;
+    s.style.animationDelay = (i * .08 + .14) + 's';
+    logo.appendChild(s);
+  });
+
+  setTimeout(() => {
+    const pre = document.getElementById('preloader');
+    pre.classList.add('out');
+    document.body.classList.remove('loading');
+    setTimeout(() => {
+      pre.style.display = 'none';
+      ['hLabel','hTitle','hTagline','hBtns'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('in');
+      });
+    }, 1000);
+  }, 1800);
+})();
+
+// ── NAVBAR ───────────────────────────────────────────────────
+const scrollProgressEl = document.getElementById('scroll-progress');
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('stuck', window.scrollY > 100);
+  if (scrollProgressEl) {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgressEl.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }
+}, { passive: true });
+
+// ── MOBILE MENU ──────────────────────────────────────────────
+function toggleMob() {
+  const m = document.getElementById('mobMenu');
+  const b = document.getElementById('burger');
+  const open = !m.classList.contains('show');
+  m.classList.toggle('show', open);
+  b.classList.toggle('x', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMob() {
+  document.getElementById('mobMenu').classList.remove('show');
+  document.getElementById('burger').classList.remove('x');
+  document.body.style.overflow = '';
+}
+
+// ── PARALLAX ─────────────────────────────────────────────────
+const heroBg   = document.getElementById('heroBg');
+const ctaBg    = document.getElementById('ctaBg');
+const heroTitle = document.getElementById('hTitle');
+let titleReady = false;
+let titleSpans = null;
+if (heroTitle) {
+  heroTitle.addEventListener('animationend', () => {
+    heroTitle.style.opacity = '1';
+    heroTitle.style.letterSpacing = '.2em';
+    heroTitle.style.animation = 'none';
+    const chars = heroTitle.textContent.split('');
+    heroTitle.innerHTML = chars.map(ch => `<span style="display:inline-block">${ch}</span>`).join('');
+    titleSpans = heroTitle.querySelectorAll('span');
+    titleReady = true;
+  }, { once: true });
+}
+const hLabel    = document.getElementById('hLabel');
+const hTagline  = document.getElementById('hTagline');
+const hBtns     = document.getElementById('hBtns');
+const hInfobar  = document.querySelector('.hero-infobar');
+const ctaTitleEl = document.getElementById('ctaTitle');
+const ctaBtnEl   = document.getElementById('ctaBtn');
+const ctaSect    = document.getElementById('cta');
+let ctaDone = false;
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  if (heroBg) heroBg.style.transform = `translateY(${sy * .5}px)`;
+  if (ctaBg || ctaSect) {
+    const r = ctaSect.getBoundingClientRect();
+    if (ctaBg) ctaBg.style.transform = `translateY(${-r.top * .3}px)`;
+    if (!ctaDone && r.top < 120) {
+      if (ctaTitleEl) ctaTitleEl.classList.add('vis');
+      if (ctaBtnEl)   ctaBtnEl.classList.add('vis');
+      ctaDone = true;
+    }
+  }
+  const vh = window.innerHeight;
+  const p  = Math.min(sy / vh, 1);
+  const delay = 0.11;
+  if (titleReady && titleSpans) {
+    const n = titleSpans.length;
+    titleSpans.forEach((span, i) => {
+      const start = delay + (i / n) * 0.32;
+      const end   = start + 0.16;
+      const lp    = Math.max(0, Math.min((p - start) / (end - start), 1));
+      span.style.opacity = 1 - lp;
+      span.style.filter  = `blur(${lp * 6}px)`;
+    });
+  }
+  if (hLabel) {
+    const lp = Math.max(0, Math.min((p - (0.03 + delay)) / 0.16, 1));
+    hLabel.style.setProperty('opacity', 1 - lp, 'important');
+  }
+  if (hTagline) {
+    const lp = Math.max(0, Math.min((p - (0.08 + delay)) / 0.18, 1));
+    hTagline.style.setProperty('opacity', 1 - lp, 'important');
+  }
+  if (hBtns) {
+    const lp = Math.max(0, Math.min((p - (0.55 + delay)) / 0.25, 1));
+    hBtns.style.setProperty('opacity', 1 - lp, 'important');
+  }
+  if (hInfobar) {
+    const lp = Math.max(0, Math.min((p - 0.30) / 0.22, 1));
+    hInfobar.style.setProperty('opacity', 1 - lp, 'important');
+  }
+}, { passive: true });
+
+// ── SCROLL ANIMATIONS ────────────────────────────────────────
+const _obsMargin = window.innerWidth <= 768 ? '0px 0px 80px 0px' : '0px 0px 220px 0px';
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); }
+    else { e.target.classList.remove('vis'); }
+  });
+}, { threshold: .08, rootMargin: _obsMargin });
+
+document.querySelectorAll('.fu, .gold-line, .wipe-l, .wipe-r').forEach(el => obs.observe(el));
+
+// experience images: separate observer without rootMargin so opacity starts exactly when image enters view
+const expImgWraps = document.querySelectorAll('.exp-img-wrap');
+if (expImgWraps.length && window.innerWidth > 768) {
+  expImgWraps.forEach(el => obs.unobserve(el));
+  const expImgObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+      } else if (e.boundingClientRect.top > window.innerHeight * 0.5) {
+        e.target.classList.remove('vis');
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 80px 0px' });
+  expImgWraps.forEach(el => expImgObs.observe(el));
+}
+
+const galHdObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('vis');
+    else e.target.classList.remove('vis');
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
+document.querySelectorAll('.gal-lbl, .gal-ttl').forEach(el => galHdObs.observe(el));
+
+if (window.innerWidth <= 768) {
+  const galMobObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('mob-vis'); galMobObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('#gallery .gal-item').forEach(el => galMobObs.observe(el));
+}
+
+// ── GALLERY LIVING CYCLE ──────────────────────────────────────
+(function() {
+  const gallery = document.getElementById('gallery');
+  if (!gallery) return;
+  const items = Array.from(gallery.querySelectorAll('.gal-item'));
+  const n = items.length;
+
+  const pool = items.map(it => {
+    const img = it.querySelector('img');
+    return { src: img.src, alt: img.alt, loc: it.querySelector('.gal-loc')?.textContent || '' };
+  });
+
+  const isMob = window.innerWidth <= 768;
+  // Desktop: cells 0 and 5 are the tall span-2 slots.
+  // They only swap with each other (terrazza_alto ↔ vista_alto).
+  // The 8 small cells swap as pairs — grid is always a perfect permutation,
+  // so no image ever appears twice simultaneously.
+  const smallCells = [1, 2, 3, 4, 6, 7, 8, 9];
+
+  const state = items.map((_, i) => i); // state[c] = pool index shown in cell c
+  const pending = new Set();
+  let tallTick = 0, timer = null, running = false;
+
+  function crossfade(c, next) {
+    if (pending.has(c) || next === state[c]) return;
+    pending.add(c);
+    const item = items[c];
+    const img  = item.querySelector('img');
+    const nd   = pool[next];
+
+    // Fade OUT — cell is invisible before src ever changes, so no duplicate
+    // is ever visible and no iOS flash can occur.
+    img.style.opacity = '0';
+
+    setTimeout(() => {
+      if (!running) { img.style.opacity = ''; pending.delete(c); return; }
+      img.src = nd.src;
+      img.alt = nd.alt;
+      const loc = item.querySelector('.gal-loc');
+      if (loc) loc.textContent = nd.loc;
+      state[c] = next;
+
+      const reveal = () => {
+        img.style.opacity = ''; // CSS transition fades back to 1
+        setTimeout(() => pending.delete(c), 290);
+      };
+      typeof img.decode === 'function'
+        ? img.decode().then(reveal).catch(reveal)
+        : reveal();
+    }, 290);
+  }
+
+  function swapPair(cA, cB) {
+    const imgA = state[cA], imgB = state[cB];
+    if (imgA === imgB) return;
+    crossfade(cA, imgB);
+    // Slight offset for organic feel; imgA captured before state changes
+    setTimeout(() => crossfade(cB, imgA), 160);
+  }
+
+  function pickTwo(arr) {
+    if (arr.length < 2) return null;
+    const i = Math.floor(Math.random() * arr.length);
+    let j = Math.floor(Math.random() * (arr.length - 1));
+    if (j >= i) j++;
+    return [arr[i], arr[j]];
+  }
+
+  // Small cells sit in a 2-column subgrid (cols 2-3 of the 3-col layout):
+  //   row1: 1 2 | row2: 3 4 | row3: 6 7 | row4: 8 9
+  // Two cells are adjacent if they share a border.
+  const adjPairs = new Set(['1-2','1-3','2-4','3-4','3-6','4-7','6-7','6-8','7-9','8-9']);
+  function isAdj(a, b) {
+    const k = a < b ? `${a}-${b}` : `${b}-${a}`;
+    return adjPairs.has(k);
+  }
+
+  // Prefer a pair that is not visually adjacent; fall back to any pair.
+  function pickSpread(arr) {
+    if (arr.length < 2) return null;
+    for (let t = 0; t < 25; t++) {
+      const i = Math.floor(Math.random() * arr.length);
+      let j = Math.floor(Math.random() * (arr.length - 1));
+      if (j >= i) j++;
+      if (!isAdj(arr[i], arr[j])) return [arr[i], arr[j]];
+    }
+    return pickTwo(arr);
+  }
+
+  function tick() {
+    if (isMob) {
+      const avail = Array.from({length: n}, (_, i) => i).filter(c => !pending.has(c));
+      const pair = pickTwo(avail);
+      if (pair) swapPair(pair[0], pair[1]);
+    } else {
+      // First spread pair fires immediately
+      const avail1 = smallCells.filter(c => !pending.has(c));
+      const pair1 = pickSpread(avail1);
+      if (pair1) {
+        swapPair(pair1[0], pair1[1]);
+        // Second spread pair staggered — wave effect across the grid
+        setTimeout(() => {
+          const avail2 = smallCells.filter(c => !pending.has(c));
+          const pair2 = pickSpread(avail2);
+          if (pair2) swapPair(pair2[0], pair2[1]);
+        }, 550);
+      }
+      // Tall cells swap every 4 ticks (~9s)
+      tallTick = (tallTick + 1) % 4;
+      if (tallTick === 0 && !pending.has(0) && !pending.has(5)) swapPair(0, 5);
+    }
+  }
+
+  function preload() { pool.forEach(p => { const im = new Image(); im.src = p.src; }); }
+  function start() { if (running) return; running = true; timer = setInterval(tick, 2200); }
+  function stop()  { running = false; clearInterval(timer); timer = null; pending.clear(); }
+
+  let ready = false;
+  const initDelay = isMob ? 500 : 1400;
+
+  const cycleObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        preload();
+        if (!ready) { ready = true; setTimeout(start, initDelay); }
+        else start();
+      } else { stop(); }
+    });
+  }, { threshold: 0.2 });
+
+  cycleObs.observe(gallery);
+})();
+
+const imgObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); imgObs.unobserve(e.target); }
+  });
+}, { threshold: 0, rootMargin: window.innerWidth <= 768 ? "0px 0px 500px 0px" : "0px 0px 120px 0px" });
+
+document.querySelectorAll('.clip-r').forEach(el => imgObs.observe(el));
+
+// chef photo on desktop: observe without early rootMargin so animation starts exactly when section enters view
+if (window.innerWidth > 768) {
+  const chefPhoto = document.querySelector('.chef-photo');
+  if (chefPhoto) {
+    imgObs.unobserve(chefPhoto);
+    const chefPhotoObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('vis');
+        } else if (e.boundingClientRect.top > window.innerHeight * 0.5) {
+          // element is below viewport — user scrolled back up above chef, reset for replay
+          e.target.classList.remove('vis');
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -180px 0px' });
+    chefPhotoObs.observe(chefPhoto);
+  }
+}
+
+// cocktail images: replay animation when scrolling back down from gallery
+const cktlClips = document.querySelectorAll('.cktl-img, .cktl-sec-img');
+if (cktlClips.length) {
+  cktlClips.forEach(el => imgObs.unobserve(el));
+  const cktlImgObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+      } else if (e.boundingClientRect.top > window.innerHeight * 0.5) {
+        e.target.classList.remove('vis');
+      }
+    });
+  }, { threshold: 0, rootMargin: window.innerWidth <= 768 ? "0px 0px 500px 0px" : "0px 0px 380px 0px" });
+  cktlClips.forEach(el => cktlImgObs.observe(el));
+}
+
+// ── CHEF QUOTE REVEAL (triggered by chef-wide image entering viewport) ─
+const chefWide = document.querySelector('.chef-wide');
+const chefQuote = document.querySelector('.chef-quote-reveal');
+if (chefWide && chefQuote) {
+  let quoteVisible = false;
+  const quoteObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      const r = e.intersectionRatio;
+      if (!quoteVisible && r >= 0.8) {
+        chefQuote.classList.add('vis'); quoteVisible = true;
+      } else if (quoteVisible && r < 0.9) {
+        chefQuote.classList.remove('vis'); quoteVisible = false;
+      }
+    });
+  }, { threshold: [0.8, 0.9] });
+  quoteObs.observe(chefWide);
+}
+
+// ── MANIFESTO SEQUENCE ───────────────────────────────────────
+(function() {
+  const manifesto = document.getElementById('manifesto');
+  if (!manifesto) return;
+  let running = false;
+  let pending = [];
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const type = (el, text, delay, done) => {
+    if (prefersReducedMotion) { el.textContent = text; if (done) done(); return; }
+    el.textContent = '';
+    let i = 0;
+    const tick = () => {
+      el.textContent += text[i++];
+      if (i < text.length) { const t = setTimeout(tick, delay); pending.push(t); }
+      else if (done) done();
+    };
+    tick();
+  };
+
+  const reset = () => {
+    pending.forEach(clearTimeout); pending = [];
+    running = false;
+    ['manTag1','manSep1','manTag2','manSep2'].forEach(id => {
+      document.getElementById(id)?.classList.remove('vis');
+    });
+    const s1 = document.getElementById('manStmt1');
+    const s2 = document.getElementById('manStmt2');
+    if (s1) s1.textContent = '';
+    if (s2) s2.textContent = '';
+  };
+
+  const run = () => {
+    if (running) return;
+    running = true;
+    const lang = document.getElementById('lEN')?.classList.contains('on') ? 'en' : 'it';
+    const t1 = lang === 'en' ? 'Constructed.' : 'Costruito.';
+    const t2 = lang === 'en' ? 'An encounter.' : 'Un incontro.';
+    const tag1 = document.getElementById('manTag1');
+    const sep1 = document.getElementById('manSep1');
+    const stmt1 = document.getElementById('manStmt1');
+    const tag2 = document.getElementById('manTag2');
+    const sep2 = document.getElementById('manSep2');
+    const stmt2 = document.getElementById('manStmt2');
+    tag1.classList.add('vis'); sep1.classList.add('vis');
+    const a = setTimeout(() => type(stmt1, t1, 72, () => {
+      const b = setTimeout(() => {
+        tag2.classList.add('vis'); sep2.classList.add('vis');
+        const c = setTimeout(() => type(stmt2, t2, 72, () => { running = false; }), 600);
+        pending.push(c);
+      }, 500);
+      pending.push(b);
+    }), 500);
+    pending.push(a);
+  };
+
+  const manObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) run(); else reset(); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -12% 0px' });
+  manObs.observe(manifesto);
+
+  window.addEventListener('scroll', function checkMan() {
+    const rect = manifesto.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.88) { run(); }
+    else if (rect.bottom < 0 || rect.top > window.innerHeight) { reset(); }
+  }, { passive: true });
+})();
+
+// ── CAROUSEL ─────────────────────────────────────────────────
+let carouselIdx = 0;
+function slide(dir) {
+  const c = document.getElementById('carousel');
+  if (!c) return;
+  const cards = Array.from(c.querySelectorAll('.d-card'));
+  if (!cards.length) return;
+
+  carouselIdx = (carouselIdx + dir + cards.length) % cards.length;
+  c.scrollTo({ left: cards[carouselIdx].offsetLeft, behavior: 'smooth' });
+}
+function resetCarousel() {
+  carouselIdx = 0;
+  const c = document.getElementById('carousel');
+  if (c) c.scrollLeft = 0;
+}
+document.querySelectorAll('.c-btn').forEach(btn => {
+  btn.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    slide(this.classList.contains('nxt') ? 1 : -1);
+  }, { passive: false });
+});
+
+// ── PHILOSOPHY PANEL ACTIVE (mobile) ─────────────────────────
+(function() {
+  if (window.innerWidth > 768) return;
+  const pin = document.querySelector('.phi-pin');
+  const panels = Array.from(document.querySelectorAll('.phi-panel'));
+  if (!pin || !panels.length) return;
+  if (panels[0]) panels[0].classList.add('phi-active');
+  let lastIdx = 0;
+  pin.addEventListener('scroll', () => {
+    const idx = Math.min(Math.round(pin.scrollLeft / window.innerWidth), panels.length - 1);
+    if (idx !== lastIdx) {
+      lastIdx = idx;
+      panels.forEach(p => p.classList.remove('phi-active'));
+      if (panels[idx]) panels[idx].classList.add('phi-active');
+    }
+  }, { passive: true });
+})();
+
+// ── PHILOSOPHY HORIZONTAL SCROLL ─────────────────────────────
+(function() {
+  const outer = document.getElementById('philosophy');
+  const track = document.getElementById('phiTrack');
+  const dots  = document.querySelectorAll('.phi-dot');
+  const panels = Array.from(document.querySelectorAll('.phi-panel'));
+  if (!outer || !track || window.innerWidth <= 768) return;
+
+  if (panels[0]) panels[0].classList.add('phi-active');
+  let prevActive = 0;
+
+  function updatePhi() {
+    const rect = outer.getBoundingClientRect();
+    const totalScroll = outer.offsetHeight - window.innerHeight;
+    const scrolled = -rect.top;
+    if (scrolled < 0) {
+      if (prevActive !== 0) {
+        prevActive = 0;
+        panels.forEach(p => p.classList.remove('phi-active'));
+        if (panels[0]) panels[0].classList.add('phi-active');
+      }
+      return;
+    }
+    if (scrolled > totalScroll) return;
+    const progress = scrolled / totalScroll;
+    track.style.transform = `translateX(-${progress * 200}vw)`;
+    const active = Math.round(progress * 2);
+    dots.forEach((d, i) => d.classList.toggle('on', i === active));
+    if (active !== prevActive) {
+      prevActive = active;
+      panels.forEach(p => p.classList.remove('phi-active'));
+      if (panels[active]) panels[active].classList.add('phi-active');
+    }
+  }
+
+  window.addEventListener('scroll', updatePhi, { passive: true });
+  updatePhi();
+})();
+
+// Mobile: aggiorna i dot al swipe nativo
+(function() {
+  const pin     = document.querySelector('.phi-pin');
+  const dots    = document.querySelectorAll('.phi-dot');
+  const mobDots = document.querySelectorAll('.phi-dot-mob');
+  if (!pin || window.innerWidth > 768) return;
+  pin.addEventListener('scroll', () => {
+    const idx = Math.round(pin.scrollLeft / window.innerWidth);
+    dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+    mobDots.forEach((d, i) => d.classList.toggle('on', i === idx));
+  }, { passive: true });
+})();
+
+// ── NAV ACTIVE LINK ──────────────────────────────────────────
+(function() {
+  const sections = ['experience','menu','chef','reservation'];
+  const navLinks = {};
+  sections.forEach(id => {
+    const a = document.querySelector(`.nav-links a[href="#${id}"]`);
+    if (a) navLinks[id] = a;
+  });
+  function updateActive() {
+    const readLine = window.scrollY + window.innerHeight * 0.4;
+    let bestId = null, bestDist = Infinity;
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const top = el.offsetTop;
+      const bottom = top + el.offsetHeight;
+      if (readLine >= top && readLine < bottom) { bestId = id; bestDist = 0; return; }
+      const dist = Math.min(Math.abs(readLine - top), Math.abs(readLine - bottom));
+      if (dist < bestDist) { bestDist = dist; bestId = id; }
+    });
+    sections.forEach(id => {
+      const a = navLinks[id];
+      if (a) a.classList.toggle('active', id === bestId);
+    });
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  window.addEventListener('touchend', updateActive, { passive: true });
+  updateActive();
+})();
+
+// ── FOOTER NOCTIS REVEAL ─────────────────────────────────────
+const ftLogo = document.querySelector('.ft-logo');
+if (ftLogo) {
+  const ftLogoObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+      } else if (e.boundingClientRect.top > window.innerHeight * 0.5) {
+        e.target.classList.remove('vis');
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 100px 0px' });
+  ftLogoObs.observe(ftLogo);
+}
+
+// ── TEXTURE PARALLAX ─────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const sec = document.getElementById('texture');
+  if (!sec) return;
+  const r = sec.getBoundingClientRect();
+  if (r.bottom < 0 || r.top > window.innerHeight) return;
+  const p = (window.innerHeight / 2 - r.top) / window.innerHeight;
+  document.querySelectorAll('#texStrip .tex-item img').forEach((img, i) => {
+    const d = i % 2 === 0 ? 1 : -1;
+    img.style.transform = `translateX(${d * p * 22}px) scale(1.05)`;
+  });
+}, { passive: true });
+
+
+// ── CLIP-R SAFETY FALLBACK ───────────────────────────────────
+const _isMobile = window.innerWidth <= 768;
+setTimeout(() => {
+  document.querySelectorAll('.clip-r').forEach(el => {
+    if (_isMobile) {
+      el.classList.add('vis');
+    } else {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 200) el.classList.add('vis');
+    }
+  });
+}, _isMobile ? 400 : 3200);
+
+// ── FORM ─────────────────────────────────────────────────────
+function submitForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('resForm');
+  form.style.transition = 'opacity .5s';
+  form.style.opacity = '0';
+  setTimeout(() => {
+    form.style.display = 'none';
+    document.getElementById('resOk').classList.add('show');
+  }, 500);
+}
+
+// ── CUSTOM CURSOR ─────────────────────────────────────────────
+(function() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const cur = document.getElementById('cursor');
+  if (!cur) return;
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  document.querySelectorAll('a, button, [onclick], label, input, select, textarea').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('hover'));
+  });
+  (function tick() {
+    cx += (mx - cx) * 0.1;
+    cy += (my - cy) * 0.1;
+    cur.style.translate = `${cx - 6.5}px ${cy - 6.5}px`;
+    requestAnimationFrame(tick);
+  })();
+})();
+
+(function() {
+  const timeEl = document.getElementById('heroTime');
+  if (!timeEl) return;
+  const digits = '0123456789';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const t = new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit' });
+    timeEl.textContent = t;
+    setInterval(() => { timeEl.textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit' }); }, 10000);
+    return;
+  }
+  function scrambleTime(target) {
+    const n = target.length;
+    const dur = 600;
+    let start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      let out = '';
+      for (let i = 0; i < n; i++) {
+        const ch = target[i];
+        if (ch === ':') { out += ':'; continue; }
+        out += p >= (i + 1) / n ? ch : digits[Math.floor(Math.random() * 10)];
+      }
+      timeEl.textContent = out;
+      if (p < 1) requestAnimationFrame(step);
+      else timeEl.textContent = target;
+    }
+    requestAnimationFrame(step);
+  }
+  function getLondonTime() {
+    return new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit' });
+  }
+  function tick() {
+    const t = getLondonTime();
+    if (timeEl.textContent !== t) scrambleTime(t);
+    setTimeout(tick, 10000);
+  }
+  setTimeout(function() {
+    scrambleTime(getLondonTime());
+    tick();
+  }, 4800);
+})();
+
+(function() {
+  const el = document.querySelector('.hero-coords');
+  if (!el) return;
+  const original = el.textContent;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const chars = '0123456789.°NSEW·+-';
+  setTimeout(function() {
+    const dur = 1400;
+    const n = original.length;
+    let start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      let out = '';
+      for (let i = 0; i < n; i++) {
+        const ch = original[i];
+        if (ch === ' ' || ch === '·') { out += ch; continue; }
+        if (p >= (i + 1) / n) { out += ch; }
+        else { out += chars[Math.floor(Math.random() * chars.length)]; }
+      }
+      el.textContent = out;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = original;
+    }
+    requestAnimationFrame(step);
+  }, 4800);
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-25T00:00:00.000Z",
+  "title": "Design System: NOCTIS",
+  "extensions": {
+    "colorMeta": {
+      "lacquered-void":  { "role": "primary",   "displayName": "Lacquered Void",  "canonical": "oklch(5% 0.005 75)",  "tonalRamp": ["oklch(5% 0.005 75)", "oklch(12% 0.005 75)", "oklch(22% 0.005 75)", "oklch(35% 0.005 75)", "oklch(50% 0.005 75)", "oklch(65% 0.005 75)", "oklch(80% 0.005 75)", "oklch(95% 0.005 75)"] },
+      "rice-paper":      { "role": "neutral",    "displayName": "Rice Paper",      "canonical": "oklch(96% 0.007 75)", "tonalRamp": ["oklch(15% 0.007 75)", "oklch(28% 0.007 75)", "oklch(42% 0.007 75)", "oklch(56% 0.007 75)", "oklch(70% 0.007 75)", "oklch(82% 0.007 75)", "oklch(90% 0.007 75)", "oklch(96% 0.007 75)"] },
+      "tempered-gold":   { "role": "secondary",  "displayName": "Tempered Gold",   "canonical": "oklch(72% 0.1 75)",   "tonalRamp": ["oklch(18% 0.08 75)", "oklch(28% 0.09 75)", "oklch(38% 0.1 75)", "oklch(50% 0.1 75)", "oklch(62% 0.1 75)", "oklch(72% 0.1 75)", "oklch(84% 0.06 75)", "oklch(93% 0.03 75)"] },
+      "carbon-surface":  { "role": "neutral",    "displayName": "Carbon Surface",  "canonical": "oklch(12% 0.005 75)", "tonalRamp": ["oklch(5% 0.005 75)", "oklch(12% 0.005 75)", "oklch(22% 0.005 75)", "oklch(35% 0.005 75)", "oklch(50% 0.005 75)", "oklch(65% 0.005 75)", "oklch(80% 0.005 75)", "oklch(95% 0.005 75)"] },
+      "near-white":      { "role": "neutral",    "displayName": "Near-White",      "canonical": "oklch(99% 0.005 75)", "tonalRamp": ["oklch(10% 0.005 75)", "oklch(25% 0.005 75)", "oklch(40% 0.005 75)", "oklch(55% 0.005 75)", "oklch(70% 0.005 75)", "oklch(84% 0.005 75)", "oklch(93% 0.005 75)", "oklch(99% 0.005 75)"] },
+      "deep-border":     { "role": "neutral",    "displayName": "Deep Border",     "canonical": "oklch(18% 0.005 75)", "tonalRamp": ["oklch(5% 0.005 75)", "oklch(12% 0.005 75)", "oklch(18% 0.005 75)", "oklch(28% 0.005 75)", "oklch(45% 0.005 75)", "oklch(62% 0.005 75)", "oklch(78% 0.005 75)", "oklch(93% 0.005 75)"] },
+      "warm-border":     { "role": "neutral",    "displayName": "Warm Border",     "canonical": "oklch(84% 0.007 75)", "tonalRamp": ["oklch(15% 0.007 75)", "oklch(30% 0.007 75)", "oklch(45% 0.007 75)", "oklch(60% 0.007 75)", "oklch(72% 0.007 75)", "oklch(80% 0.007 75)", "oklch(88% 0.007 75)", "oklch(96% 0.007 75)"] }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display",  "purpose": "Hero title only. One element per page at this scale." },
+      "headline": { "displayName": "Headline", "purpose": "Section-defining titles. Emotional anchors of each section." },
+      "title":    { "displayName": "Title",    "purpose": "Secondary section titles. Full authority at reduced scale." },
+      "body":     { "displayName": "Body",     "purpose": "All descriptive prose. Unhurried, open, weight 300." },
+      "label":    { "displayName": "Label",    "purpose": "Category markers. Wide tracking at 11px. Not headings." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "expo-out",    "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "All entrance animations. Precise, no overshoot." },
+      { "name": "state-ease",  "value": "ease",                          "purpose": "Button hover, opacity transitions. 0.3s duration." },
+      { "name": "clip-reveal", "value": "ease-out",                      "purpose": "clip-path image reveal. 1.2s duration." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button Primary (Gold)",
+      "kind": "button",
+      "refersTo": "button-gold",
+      "description": "Primary CTA. Used for Reserve Experience and reservation submission.",
+      "html": "<a href=\"#\" class=\"ds-btn-gold\">Reserve Experience</a>",
+      "css": ".ds-btn-gold { display: inline-block; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #0A0A0A; background: #C9A96E; padding: 14px 32px; text-decoration: none; border: none; border-radius: 0; cursor: pointer; transition: background 0.3s; } .ds-btn-gold:hover { background: #FFFFFF; color: #0A0A0A; }"
+    },
+    {
+      "name": "Button Ghost",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary CTA on dark surfaces. Used alongside the gold button.",
+      "html": "<a href=\"#\" class=\"ds-btn-ghost\">Explore</a>",
+      "css": ".ds-btn-ghost { display: inline-block; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: #FFFFFF; background: transparent; border: 1px solid rgba(255,255,255,0.5); padding: 14px 32px; text-decoration: none; border-radius: 0; cursor: pointer; transition: background 0.3s, color 0.3s; } .ds-btn-ghost:hover { background: #FFFFFF; color: #0A0A0A; }"
+    },
+    {
+      "name": "Button Submit",
+      "kind": "button",
+      "refersTo": "button-submit",
+      "description": "Form submission button on Rice Paper sections. Inverts to gold on hover.",
+      "html": "<button class=\"ds-btn-submit\">Confirm Reservation</button>",
+      "css": ".ds-btn-submit { display: block; width: 100%; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #F5F0EB; background: #0A0A0A; padding: 18px 48px; border: none; border-radius: 0; cursor: pointer; transition: background 0.3s, color 0.3s; } .ds-btn-submit:hover { background: #C9A96E; color: #0A0A0A; }"
+    },
+    {
+      "name": "Form Input (Underline)",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Bottom-border-only field used in the reservation form on Rice Paper.",
+      "html": "<div class=\"ds-fg\"><input class=\"ds-input\" type=\"text\" placeholder=\"Name\"></div>",
+      "css": ".ds-fg { margin-bottom: 4px; } .ds-input { width: 100%; border: none; border-bottom: 1px solid #D5CFC8; background: transparent; padding: 16px 0; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 300; color: #0A0A0A; outline: none; border-radius: 0; transition: border-color 0.3s; -webkit-appearance: none; appearance: none; } .ds-input:focus { border-bottom-color: #0A0A0A; } .ds-input::placeholder { color: rgba(0,0,0,0.30); font-weight: 300; }"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Fixed top nav. Transparent at top, gains blur backdrop on scroll.",
+      "html": "<nav class=\"ds-nav ds-nav--stuck\"><a href=\"#\" class=\"ds-nav-logo\">NOCTIS</a><ul class=\"ds-nav-links\"><li><a href=\"#\">Experience</a></li><li><a href=\"#\">Menu</a></li><li><a href=\"#\">Chef</a></li><li><a href=\"#\">Reserve</a></li></ul><a href=\"#\" class=\"ds-nav-cta\">Reserve</a></nav>",
+      "css": ".ds-nav { position: relative; padding: 18px 60px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.93); backdrop-filter: blur(18px); } .ds-nav-logo { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; letter-spacing: 0.4em; text-transform: uppercase; color: #FFFFFF; text-decoration: none; } .ds-nav-links { display: flex; gap: 44px; list-style: none; padding: 0; margin: 0; } .ds-nav-links a { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: #FFFFFF; text-decoration: none; transition: opacity 0.3s; } .ds-nav-links a:hover { opacity: 0.45; } .ds-nav-cta { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; color: #FFFFFF; text-decoration: none; border: 1px solid #FFFFFF; padding: 8px 20px; border-radius: 0; transition: background 0.3s, color 0.3s; } .ds-nav-cta:hover { background: #FFFFFF; color: #0A0A0A; }"
+    },
+    {
+      "name": "Gold Line Divider",
+      "kind": "custom",
+      "refersTo": "gold-line",
+      "description": "Signature section marker. Animates from 0 to 56px on scroll entry.",
+      "html": "<div class=\"ds-gold-line ds-gold-line--visible\"></div>",
+      "css": ".ds-gold-line { height: 1px; background: #C9A96E; width: 0; max-width: 56px; transition: width 0.8s ease-out; } .ds-gold-line--visible { width: 56px; }"
+    },
+    {
+      "name": "Dish Card",
+      "kind": "card",
+      "refersTo": "card-dish",
+      "description": "Carousel item for signature dishes. Fixed width, hover image scale.",
+      "html": "<div class=\"ds-dish-card\"><div class=\"ds-dish-img\"><img src=\"\" alt=\"Otoro Nigiri\"></div><div class=\"ds-dish-num\">01</div><div class=\"ds-dish-name\">Otoro Nigiri</div><div class=\"ds-dish-desc\">Premium tuna, yuzu kosho, gold</div></div>",
+      "css": ".ds-dish-card { flex-shrink: 0; width: 300px; cursor: pointer; } .ds-dish-img { width: 100%; aspect-ratio: 4/5; overflow: hidden; margin-bottom: 14px; background: #e2ddd7; } .ds-dish-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; } .ds-dish-card:hover .ds-dish-img img { transform: scale(1.03); } .ds-dish-num { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 300; color: #C9A96E; letter-spacing: 0.15em; margin-bottom: 5px; } .ds-dish-name { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: #0A0A0A; margin-bottom: 5px; } .ds-dish-desc { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 300; color: rgba(0,0,0,0.45); line-height: 1.6; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Mineral Interior",
+    "overview": "NOCTIS is not decorated: it is constructed. The visual language belongs to Japanese spatial architecture, not to the fine dining conventions of Mediterranean luxury. Surfaces have mass. Silence is structural, not incidental. When you enter this design system, you are entering a space that was built with the same precision and restraint that governs each dish on the menu.\n\nThe system is dark by physical necessity, not by aesthetic trend. The darkness is the room. The gold is not precious, it is mineral. The cream appears only where breath is needed: a pause in a long corridor.\n\nThis system explicitly rejects every signal of classic Italian fine dining and every SaaS dark-mode reflex. The references are closer to the surface quality of a Kengo Kuma interior or a Brutus magazine spread.",
+    "keyCharacteristics": [
+      "Zero border-radius across all interactive and structural elements",
+      "Single typeface (DM Sans) spanning weight 200 to 800",
+      "Tempered Gold used as punctuation, never wallpaper",
+      "Flat surfaces — no shadows — depth via overlay opacity and gradient fades",
+      "Entrance animations feel like physics: expo out, no bounce, no spring"
+    ],
+    "rules": [
+      { "name": "The One Touch Rule",    "body": "Tempered Gold appears on fewer than 10% of any surface. When gold appears everywhere, it appears nowhere.", "section": "colors" },
+      { "name": "The Temperature Rule", "body": "Every neutral is warm-tinted toward gold's hue (75° in OKLCH). Cold neutrals are forbidden.", "section": "colors" },
+      { "name": "The One Family Rule",  "body": "No typeface other than DM Sans is permitted. Contrast is expressed through weight, size, or letter-spacing within the family.", "section": "typography" },
+      { "name": "The Weight Ratio Rule","body": "Adjacent hierarchy levels must differ by at least one full weight step.", "section": "typography" },
+      { "name": "The No Shadow Rule",   "body": "Box-shadow is prohibited. Depth is expressed through tonal contrast and overlay.", "section": "elevation" },
+      { "name": "The Overlay Rule",     "body": "Photography is never shown unmodified. All full-bleed images carry at least one overlay layer.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use cubic-bezier(0.16, 1, 0.3, 1) for all entrance animations",
+      "Do apply prefers-reduced-motion to suppress animations while preserving layout",
+      "Do tint every neutral toward hue 75° in OKLCH",
+      "Do use DM Sans weight 300 for all body copy",
+      "Do separate sections with background color alternation, not horizontal rules",
+      "Do place meaningful alt text on all photography — describe the atmosphere",
+      "Do use will-change: transform on parallax elements"
+    ],
+    "donts": [
+      "Don't use border-radius on any element — zero is the doctrine",
+      "Don't add box-shadow to any element",
+      "Don't use Tempered Gold as a background on large surfaces",
+      "Don't introduce a second typeface",
+      "Don't use border-left or border-right greater than 1px as a colored accent",
+      "Don't use background-clip: text with a gradient",
+      "Don't produce anything that reads as Italian fine dining: white marble, ornamental serif on cream, candlelight photography",
+      "Don't use ease-in-out for UI transitions — ease-out only",
+      "Don't animate CSS layout properties"
+    ]
+  }
+}
