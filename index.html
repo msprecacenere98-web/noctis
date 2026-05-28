@@ -2220,9 +2220,8 @@ document.querySelectorAll('.c-btn').forEach(btn => {
   let prevActive = 0;
 
   function updatePhi() {
-    const rect = outer.getBoundingClientRect();
     const totalScroll = outer.offsetHeight - window.innerHeight;
-    const scrolled = -rect.top;
+    const scrolled = window.scrollY - outer.offsetTop;
     if (scrolled < 0) {
       if (prevActive !== 0) {
         prevActive = 0;

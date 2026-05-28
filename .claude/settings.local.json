@@ -15,7 +15,8 @@
       "Bash(sips -g pixelWidth -g pixelHeight \"/Users/mat_spreka/Desktop/NOCTIS/_originals/03_DISHES/correzzione matcha.PNG\")",
       "Bash(sips -s format jpeg -s formatOptions 75 '/Users/mat_spreka/Desktop/NOCTIS/_originals/03_DISHES/correzzione matcha.PNG' --out /Users/mat_spreka/Desktop/NOCTIS/03_DISHES/dessert_cioccolato.jpg)",
       "Bash(sips -g pixelWidth -g pixelHeight \"/Users/mat_spreka/Desktop/NOCTIS/_originals/03_DISHES/correzione petit.PNG\")",
-      "Bash(sips -s format jpeg -s formatOptions 75 '/Users/mat_spreka/Desktop/NOCTIS/_originals/03_DISHES/correzione petit.PNG' --out /Users/mat_spreka/Desktop/NOCTIS/03_DISHES/petit_four.jpg)"
+      "Bash(sips -s format jpeg -s formatOptions 75 '/Users/mat_spreka/Desktop/NOCTIS/_originals/03_DISHES/correzione petit.PNG' --out /Users/mat_spreka/Desktop/NOCTIS/03_DISHES/petit_four.jpg)",
+      "Bash(sort -k5 -rh)"
     ]
   }
 }
