@@ -43,7 +43,8 @@ html { scroll-behavior: smooth; }
   border: 1px solid rgba(255,255,255,.38);
   border-radius: 50%;
   pointer-events: none;
-  transition: border-color .35s, background-color .35s, scale .35s cubic-bezier(.16,1,.3,1);
+  opacity: 0;
+  transition: border-color .35s, background-color .35s, scale .35s cubic-bezier(.16,1,.3,1), opacity .3s ease;
   scale: 1;
   will-change: translate;
 }
@@ -1524,7 +1525,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
 <!-- ── TICKER ───────────────────────────────────────────────── -->
 <div class="ticker-wrap">
   <div class="ticker-track">
-    <span class="ticker-txt">ENTRUSTED</span><span class="ticker-sep">·</span><span class="ticker-txt">SILENCE</span><span class="ticker-sep">·</span><span class="ticker-txt">THIRTY COVERS</span><span class="ticker-sep">·</span><span class="ticker-txt">NOCTIS</span><span class="ticker-sep">·</span><span class="ticker-txt">LONDON</span><span class="ticker-sep">·</span><span class="ticker-txt">BEYOND PERCEPTION</span><span class="ticker-sep">·</span><span class="ticker-txt">EST. 2026</span><span class="ticker-sep">·</span><span class="ticker-txt">ENTRUSTED</span><span class="ticker-sep">·</span><span class="ticker-txt">SILENCE</span><span class="ticker-sep">·</span><span class="ticker-txt">THIRTY COVERS</span><span class="ticker-sep">·</span><span class="ticker-txt">NOCTIS</span><span class="ticker-sep">·</span><span class="ticker-txt">LONDON</span><span class="ticker-sep">·</span><span class="ticker-txt">BEYOND PERCEPTION</span><span class="ticker-sep">·</span><span class="ticker-txt">EST. 2026</span><span class="ticker-sep">·</span>
+    <span class="ticker-txt" data-en="ENTRUSTED" data-it="AFFIDATO">ENTRUSTED</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="SILENCE" data-it="SILENZIO">SILENCE</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="THIRTY COVERS" data-it="TRENTA COPERTI">THIRTY COVERS</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="NOCTIS" data-it="NOCTIS">NOCTIS</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="LONDON" data-it="LONDRA">LONDON</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="BEYOND PERCEPTION" data-it="OLTRE LA PERCEZIONE">BEYOND PERCEPTION</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="EST. 2026" data-it="EST. 2026">EST. 2026</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="ENTRUSTED" data-it="AFFIDATO">ENTRUSTED</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="SILENCE" data-it="SILENZIO">SILENCE</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="THIRTY COVERS" data-it="TRENTA COPERTI">THIRTY COVERS</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="NOCTIS" data-it="NOCTIS">NOCTIS</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="LONDON" data-it="LONDRA">LONDON</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="BEYOND PERCEPTION" data-it="OLTRE LA PERCEZIONE">BEYOND PERCEPTION</span><span class="ticker-sep">·</span><span class="ticker-txt" data-en="EST. 2026" data-it="EST. 2026">EST. 2026</span><span class="ticker-sep">·</span>
   </div>
 </div>
 
@@ -2348,8 +2349,11 @@ function submitForm(e) {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   const cur = document.getElementById('cursor');
   if (!cur) return;
-  let mx = 0, my = 0, cx = 0, cy = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  let mx = 0, my = 0, cx = 0, cy = 0, visible = false;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    if (!visible) { cx = mx; cy = my; cur.style.opacity = '1'; visible = true; }
+  });
   document.querySelectorAll('a, button, [onclick], label, input, select, textarea').forEach(el => {
     el.addEventListener('mouseenter', () => cur.classList.add('hover'));
     el.addEventListener('mouseleave', () => cur.classList.remove('hover'));
