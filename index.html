@@ -129,7 +129,7 @@ nav.stuck {
 }
 .nav-links {
   position: absolute; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 34px; list-style: none;
+  display: flex; gap: 40px; list-style: none;
 }
 .nav-links a {
   font-size: 12px; font-weight: 300;
@@ -1563,14 +1563,14 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
 <section id="gallery">
   <div class="gal-hd">
     <div class="gold-line fu"></div>
-    <span class="s-label gal-label-center gal-lbl" data-en="The Space" data-it="Lo Spazio">The Space</span>
+
     <h2 class="gal-title gal-ttl" data-en="Where architecture<br>becomes sensation." data-it="Dove l'architettura<br>diventa sensazione.">Where architecture<br>becomes sensation.</h2>
   </div>
   <div class="gal-num-wrap" style="padding: 36px clamp(24px,5.5vw,80px) 20px;">
     <div class="gold-line fu"></div><div style="height:15px"></div>
     <div class="s-header">
       <span class="sec-num">04</span>
-      <span class="s-label fu" data-en="The Gallery" data-it="The Gallery">The Gallery</span>
+      <span class="s-label fu" data-en="The Gallery" data-it="Gallery">The Gallery</span>
     </div>
   </div>
   <div class="masonry">
@@ -1587,7 +1587,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
   </div>
   <div class="gal-hd">
     <div class="gold-line fu"></div>
-    <span class="s-label gal-label-center gal-lbl" data-en="The Bar" data-it="Il Bar">The Bar</span>
+
     <h2 class="gal-title gal-ttl" data-en="Liquid poetry." data-it="Poesia liquida.">Liquid poetry.</h2>
   </div>
 </section>
@@ -1603,7 +1603,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
       <div class="gold-line fu"></div><div style="height:15px"></div>
       <div class="s-header">
         <span class="sec-num">05</span>
-        <span class="s-label fu d1" data-en="The Bar" data-it="The Bar">The Bar</span>
+        <span class="s-label fu d1" data-en="The Bar" data-it="Bar">The Bar</span>
       </div>
       <h2 class="cktl-title fu d2" data-en="Crafted by intention." data-it="Creato con intenzione.">Crafted by intention.</h2>
       <p class="cktl-body fu d3"
@@ -1623,7 +1623,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
 <section id="texture">
   <div class="gal-hd">
     <div class="gold-line fu"></div>
-    <span class="s-label gal-label-center gal-lbl" data-en="The Detail" data-it="Il Dettaglio">The Detail</span>
+
     <h2 class="gal-title gal-ttl" data-en="Where matter speaks." data-it="Dove la materia parla.">Where matter speaks.</h2>
   </div>
   <div class="tex-strip" id="texStrip">
@@ -2306,7 +2306,7 @@ document.querySelectorAll('.c-btn').forEach(btn => {
         }
       }
     }
-    const neutralSections = ['manifesto', 'texture'];
+    const neutralSections = ['hero', 'manifesto', 'texture'];
     for (const nsId of neutralSections) {
       const nsEl = document.getElementById(nsId);
       if (nsEl) {
