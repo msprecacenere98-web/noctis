@@ -129,7 +129,7 @@ nav.stuck {
 }
 .nav-links {
   position: absolute; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 44px; list-style: none;
+  display: flex; gap: 34px; list-style: none;
 }
 .nav-links a {
   font-size: 12px; font-weight: 300;
@@ -370,6 +370,8 @@ nav.stuck {
 #experience .sec-num { color: var(--white); }
 #menu .sec-num { color: var(--black); }
 #chef .sec-num { color: var(--white); }
+#gallery .sec-num { color: var(--white); }
+#cocktail .sec-num { color: var(--white); }
 #reservation .sec-num { color: var(--black); }
 #menu .s-label, #reservation .s-label { color: #7A5C30; }
 #menu .gold-line, #reservation .gold-line { background: #7A5C30; }
@@ -764,12 +766,13 @@ nav.stuck {
 .phi-word {
   font-size: 13px; font-weight: 300; color: var(--gold);
 }
-.phi-line { height: 1px; background: var(--gold); width: 56px; }
+.phi-line { height: 1px; background: var(--gold); width: 56px; margin-top: -13px; }
 .phi-panel:nth-child(2) .phi-line,
 .phi-panel:nth-child(3) .phi-line { width: 65px; }
 .phi-head {
   font-size: clamp(2.2rem, 3.5vw, 4.8rem);
   font-weight: 700; line-height: 1.1; color: var(--white);
+  margin-top: -10px;
 }
 .phi-body {
   font-size: 15px; font-weight: 300;
@@ -931,8 +934,10 @@ nav.stuck {
 .cktl-txt {
   padding: 120px 80px; display:flex; flex-direction:column; justify-content:center;
 }
-.cktl-txt .gold-line { margin-bottom: 10px; max-width: 47px; }
-.cktl-txt .gold-line.vis { width: 47px; }
+.cktl-txt .gold-line { margin-bottom: 0; max-width: 68px; }
+.cktl-txt .gold-line.vis { width: 68px; }
+.gal-num-wrap .gold-line { max-width: 68px; }
+.gal-num-wrap .gold-line.vis { width: 68px; }
 .cktl-title {
   font-size: clamp(2.4rem, 4vw, 5rem);
   font-weight: 700; line-height: 1.05;
@@ -957,7 +962,7 @@ nav.stuck {
   .cktl-inner { grid-template-columns:1fr; }
   .cktl-img { height:56vw; }
   .cktl-txt { padding:60px 24px; }
-  .cktl-txt .gold-line { margin-bottom: 7px; }
+  .cktl-txt .gold-line { margin-bottom: 0; }
   .cktl-title { font-size: clamp(2rem, 8vw, 4rem); }
   .cktl-secondary { grid-template-columns:1fr; }
 }
@@ -1265,6 +1270,8 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
   <a href="#experience" onclick="closeMob()" data-en="Experience" data-it="Esperienza">Experience</a>
   <a href="#menu" onclick="closeMob();resetCarousel()">Menu</a>
   <a href="#chef" onclick="closeMob()">Chef</a>
+  <a href="#gallery" onclick="closeMob()" data-en="Space" data-it="Lo Spazio">Space</a>
+  <a href="#cocktail" onclick="closeMob()" data-en="Bar" data-it="Bar">Bar</a>
   <a href="#reservation" onclick="closeMob()" data-en="Reserve" data-it="Prenota">Reserve</a>
   <button class="mob-lang-btn" onclick="toggleLang()" aria-label="Switch language">
     <span class="lopt on" id="lEN2">EN</span>
@@ -1281,6 +1288,8 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
     <li><a href="#experience" data-en="Experience" data-it="Esperienza">Experience</a></li>
     <li><a href="#menu" onclick="resetCarousel()">Menu</a></li>
     <li><a href="#chef">Chef</a></li>
+    <li><a href="#gallery" data-en="Space" data-it="Lo Spazio">Space</a></li>
+    <li><a href="#cocktail" data-en="Bar" data-it="Bar">Bar</a></li>
     <li><a href="#reservation" data-en="Reserve" data-it="Prenota">Reserve</a></li>
   </ul>
   <div class="nav-right">
@@ -1323,7 +1332,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
 <section id="experience">
   <div class="exp-inner">
     <div class="exp-left">
-      <div class="gold-line fu"></div><br>
+      <div class="gold-line fu"></div><div style="height:15px"></div>
       <div class="s-header">
         <span class="sec-num">01</span>
         <span class="s-label fu d1" data-en="The Experience" data-it="L'Esperienza">The Experience</span>
@@ -1422,7 +1431,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
 <!-- ── DISHES ─────────────────────────────────────────────── -->
 <section id="menu">
   <div class="dishes-hd">
-    <div class="gold-line fu"></div><br>
+    <div class="gold-line fu"></div><div style="height:15px"></div>
     <div class="s-header">
       <span class="sec-num">02</span>
       <span class="s-label fu d1" data-en="Signature Dishes" data-it="Piatti Firma">Signature Dishes</span>
@@ -1501,7 +1510,7 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
 <section id="chef">
   <div class="chef-inner">
     <div class="chef-txt">
-      <div class="gold-line fu"></div><br>
+      <div class="gold-line fu"></div><div style="height:15px"></div>
       <div class="s-header">
         <span class="sec-num">03</span>
         <p class="chef-sub fu" style="margin:0">Executive Chef · NOCTIS</p>
@@ -1555,6 +1564,13 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
     <span class="s-label gal-label-center gal-lbl" data-en="The Space" data-it="Lo Spazio">The Space</span>
     <h2 class="gal-title gal-ttl" data-en="Where architecture<br>becomes sensation." data-it="Dove l'architettura<br>diventa sensazione.">Where architecture<br>becomes sensation.</h2>
   </div>
+  <div class="gal-num-wrap" style="padding: 36px clamp(24px,5.5vw,80px) 20px;">
+    <div class="gold-line fu"></div><div style="height:15px"></div>
+    <div class="s-header">
+      <span class="sec-num">04</span>
+      <span class="s-label fu" data-en="The Space" data-it="Lo Spazio">The Space</span>
+    </div>
+  </div>
   <div class="masonry">
     <div class="gal-item clip-r"><img src="08_GALLERY/vista_alto.jpg" alt="Aerial view from the mezzanine: geometry of tables and pools of light below" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Aerial View" data-it="Vista Aerea">Aerial View</span></div></div>
     <div class="gal-item clip-r"><img src="08_GALLERY/sala_grande.jpg" alt="The main hall: thirty covers in precise arrangement, brass overhead, stone below" loading="lazy"><div class="gal-ov"><span class="gal-loc" data-en="Main Hall" data-it="Sala Principale">Main Hall</span></div></div>
@@ -1582,8 +1598,11 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
       <div class="gal-ov"><span class="gal-loc" data-en="Yoru" data-it="Yoru">Yoru</span></div>
     </div>
     <div class="cktl-txt">
-      <div class="gold-line fu"></div>
-      <span class="s-label fu d1" data-en="The Programme" data-it="Il Programma">The Programme</span>
+      <div class="gold-line fu"></div><div style="height:15px"></div>
+      <div class="s-header">
+        <span class="sec-num">05</span>
+        <span class="s-label fu d1" data-en="The Bar" data-it="Il Bar">The Bar</span>
+      </div>
       <h2 class="cktl-title fu d2" data-en="Crafted by intention." data-it="Creato con intenzione.">Crafted by intention.</h2>
       <p class="cktl-body fu d3"
         data-en="Our bar mirrors the kitchen's philosophy — Japanese ingredients, Western technique, singular results."
@@ -1616,9 +1635,9 @@ input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.35; cursor: p
 <!-- ── RESERVATION ────────────────────────────────────────── -->
 <section id="reservation">
   <div class="res-inner">
-    <div class="gold-line fu"></div><br>
+    <div class="gold-line fu"></div><div style="height:15px"></div>
     <div class="s-header">
-      <span class="sec-num">04</span>
+      <span class="sec-num">06</span>
       <span class="s-label fu d1" data-en="Reservations" data-it="Prenotazioni">Reservations</span>
     </div>
     <h2 class="res-title fu d2" data-en="Reserve your night." data-it="Prenota la tua serata.">Reserve your night.</h2>
@@ -2265,7 +2284,7 @@ document.querySelectorAll('.c-btn').forEach(btn => {
 
 // ── NAV ACTIVE LINK ──────────────────────────────────────────
 (function() {
-  const sections = ['experience','menu','chef','reservation'];
+  const sections = ['experience','menu','chef','gallery','cocktail','reservation'];
   const navLinks = {};
   sections.forEach(id => {
     const a = document.querySelector(`.nav-links a[href="#${id}"]`);
@@ -2273,7 +2292,19 @@ document.querySelectorAll('.c-btn').forEach(btn => {
   });
   function updateActive() {
     const readLine = window.scrollY + window.innerHeight * 0.4;
-    const neutralSections = ['gallery', 'cocktail', 'texture'];
+    const stickyMap = { 'philosophy': 'experience', 'omakase': 'menu' };
+    for (const [sId, targetId] of Object.entries(stickyMap)) {
+      const sEl = document.getElementById(sId);
+      if (sEl) {
+        const sTop = sEl.offsetTop;
+        const sBottom = sTop + sEl.offsetHeight;
+        if (readLine >= sTop && readLine < sBottom) {
+          sections.forEach(id => { const a = navLinks[id]; if (a) a.classList.toggle('active', id === targetId); });
+          return;
+        }
+      }
+    }
+    const neutralSections = ['manifesto', 'texture'];
     for (const nsId of neutralSections) {
       const nsEl = document.getElementById(nsId);
       if (nsEl) {
